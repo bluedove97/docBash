@@ -1,0 +1,1602 @@
+[
+  {
+    "tool_name": "wafer_yield_query",
+    "description": "특정 공정의 웨이퍼 수율을 조회한다.",
+    "tags": [
+      "wafer",
+      "yield",
+      "수율",
+      "process",
+      "manufacturing"
+    ],
+    "examples": [
+      "AAAA 라인의 BBBB공정 수율을 조회하고 싶어.",
+      "BBBB 공정의 지난 주 수율이 어떻게 되지?",
+      "저수율 웨이퍼 수율이 나온 공정이 어디야?"
+    ]
+  },
+  {
+    "tool_name": "line_summary_query",
+    "description": "라인 전체 생산 현황 요약 대시보드를 조회한다.",
+    "tags": [
+      "line",
+      "summary",
+      "요약",
+      "현황",
+      "dashboard"
+    ],
+    "examples": [
+      "라인 현황을 한 눈에 보고 싶어.",
+      "전체 생산 현황에 대해 요약해줘.",
+      "대시보드 형태로 라인 생산 현황을 알려줘"
+    ]
+  },
+  {
+    "tool_name": "lot_status_query",
+    "description": "특정 LOT의 현재 상태와 진행 공정을 조회한다.",
+    "tags": [
+      "lot",
+      "status",
+      "진행",
+      "공정",
+      "tracking"
+    ],
+    "examples": [
+      "LOT A12345가 지금 어디 공정에 있지?",
+      "이 LOT의 진행 상태를 알려줘.",
+      "현재 대기 중인 LOT 상태를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "wip_inventory_query",
+    "description": "공정별 재공(WIP) 수량과 분포를 조회한다.",
+    "tags": [
+      "wip",
+      "inventory",
+      "재공",
+      "분포",
+      "quantity"
+    ],
+    "examples": [
+      "현재 WIP가 공정별로 얼마나 쌓여 있어?",
+      "재공 수량이 많은 공정을 보고 싶어.",
+      "라인별 WIP 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "dispatch_priority_query",
+    "description": "현재 기준의 LOT 투입 우선순위를 조회한다.",
+    "tags": [
+      "dispatch",
+      "priority",
+      "투입",
+      "우선순위",
+      "lot"
+    ],
+    "examples": [
+      "지금 어떤 LOT를 먼저 투입해야 해?",
+      "우선순위가 높은 LOT 목록을 보여줘.",
+      "디스패치 순서를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "equipment_status_query",
+    "description": "설비의 현재 가동 상태와 알람 여부를 조회한다.",
+    "tags": [
+      "equipment",
+      "status",
+      "설비",
+      "가동",
+      "alarm"
+    ],
+    "examples": [
+      "장비 A12 상태가 정상인지 확인해줘.",
+      "가동 중인 설비 목록을 보고 싶어.",
+      "현재 알람 걸린 장비가 뭐야?"
+    ]
+  },
+  {
+    "tool_name": "equipment_uptime_query",
+    "description": "설비의 가동률과 다운타임을 조회한다.",
+    "tags": [
+      "equipment",
+      "uptime",
+      "가동률",
+      "down",
+      "availability"
+    ],
+    "examples": [
+      "이번 달 장비 가동률이 어떻게 돼?",
+      "설비별 다운타임을 보고 싶어.",
+      "가동률이 낮은 장비를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "equipment_alarm_query",
+    "description": "설비 알람 내역과 현재 활성 알람을 조회한다.",
+    "tags": [
+      "equipment",
+      "alarm",
+      "알람",
+      "fault",
+      "history"
+    ],
+    "examples": [
+      "최근 장비 알람 이력을 보여줘.",
+      "현재 떠 있는 알람만 조회해줘.",
+      "어떤 설비에서 경보가 발생했는지 알려줘."
+    ]
+  },
+  {
+    "tool_name": "equipment_maintenance_schedule_query",
+    "description": "설비 예방보전 일정과 예정 작업을 조회한다.",
+    "tags": [
+      "equipment",
+      "maintenance",
+      "보전",
+      "schedule",
+      "PM"
+    ],
+    "examples": [
+      "다음 주 예방보전 일정이 어떻게 돼?",
+      "장비별 정기점검 계획을 보여줘.",
+      "이번 달 보전 예정 설비를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "recipe_version_query",
+    "description": "공정 레시피의 현재 버전과 변경 이력을 조회한다.",
+    "tags": [
+      "recipe",
+      "version",
+      "레시피",
+      "변경",
+      "history"
+    ],
+    "examples": [
+      "이 공정에 적용된 레시피 버전이 뭐야?",
+      "최근 레시피 변경 이력을 알려줘.",
+      "현재 사용 중인 recipe를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "recipe_spec_comparison_query",
+    "description": "레시피별 주요 조건 차이를 비교 조회한다.",
+    "tags": [
+      "recipe",
+      "comparison",
+      "조건",
+      "비교",
+      "spec"
+    ],
+    "examples": [
+      "A 레시피와 B 레시피 차이를 비교해줘.",
+      "조건값이 어떻게 다른지 보여줘.",
+      "두 버전 레시피의 차이를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_route_query",
+    "description": "LOT의 공정 라우팅 경로를 조회한다.",
+    "tags": [
+      "route",
+      "process",
+      "routing",
+      "lot",
+      "path"
+    ],
+    "examples": [
+      "이 제품의 전체 라우팅 경로를 보여줘.",
+      "LOT가 어떤 공정을 거치는지 조회해줘.",
+      "현재 route 기준으로 다음 공정을 알려줘."
+    ]
+  },
+  {
+    "tool_name": "process_step_status_query",
+    "description": "공정 단계별 진행 완료 여부와 대기 상태를 조회한다.",
+    "tags": [
+      "step",
+      "status",
+      "process",
+      "progress",
+      "queue"
+    ],
+    "examples": [
+      "각 공정 단계 진행 상태를 보고 싶어.",
+      "완료된 스텝과 대기 스텝을 알려줘.",
+      "현재 공정 단계별 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_cycle_time_query",
+    "description": "공정별 사이클 타임을 조회한다.",
+    "tags": [
+      "cycle",
+      "time",
+      "공정",
+      "처리시간",
+      "leadtime"
+    ],
+    "examples": [
+      "공정별 cycle time을 알려줘.",
+      "최근 사이클 타임이 늘어난 공정이 있어?",
+      "라인 사이클 타임 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_bottleneck_query",
+    "description": "생산 흐름의 병목 공정을 식별하여 조회한다.",
+    "tags": [
+      "bottleneck",
+      "process",
+      "병목",
+      "flow",
+      "delay"
+    ],
+    "examples": [
+      "지금 병목이 걸린 공정이 어디야?",
+      "대기시간이 긴 공정을 알려줘.",
+      "라인 병목 구간을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_hold_reason_query",
+    "description": "공정 HOLD 사유와 보류 내역을 조회한다.",
+    "tags": [
+      "hold",
+      "reason",
+      "보류",
+      "사유",
+      "process"
+    ],
+    "examples": [
+      "현재 HOLD된 LOT 사유가 뭐야?",
+      "공정 보류 내역을 조회해줘.",
+      "왜 멈춰 있는지 HOLD 이유를 알려줘."
+    ]
+  },
+  {
+    "tool_name": "process_rework_query",
+    "description": "재작업 대상 LOT와 재작업 이력을 조회한다.",
+    "tags": [
+      "rework",
+      "lot",
+      "재작업",
+      "이력",
+      "defect"
+    ],
+    "examples": [
+      "재작업 들어간 LOT 목록을 보여줘.",
+      "이 LOT의 rework 이력을 알려줘.",
+      "재작업 사유가 있는지 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_reentry_query",
+    "description": "재투입된 LOT의 재진입 이력을 조회한다.",
+    "tags": [
+      "reentry",
+      "rework",
+      "재투입",
+      "이력",
+      "lot"
+    ],
+    "examples": [
+      "다시 투입된 LOT가 뭐가 있어?",
+      "재진입 이력을 조회해줘.",
+      "이 LOT가 몇 번 재투입됐는지 알려줘."
+    ]
+  },
+  {
+    "tool_name": "process_mismatch_query",
+    "description": "공정 투입 정보와 기준 데이터의 불일치를 조회한다.",
+    "tags": [
+      "mismatch",
+      "process",
+      "불일치",
+      "validation",
+      "lot"
+    ],
+    "examples": [
+      "공정 정보 불일치가 있는 LOT가 있어?",
+      "라우팅과 실제 투입 데이터가 다른 건 뭐야?",
+      "검증 실패 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_genealogy_query",
+    "description": "LOT의 공정 이력과 원인 추적 정보를 조회한다.",
+    "tags": [
+      "genealogy",
+      "lot",
+      "trace",
+      "이력",
+      "origin"
+    ],
+    "examples": [
+      "이 LOT의 genealogy를 보여줘.",
+      "어떤 장비를 거쳤는지 추적해줘.",
+      "LOT 이력을 처음부터 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_split_merge_query",
+    "description": "LOT 분할과 병합 이력을 조회한다.",
+    "tags": [
+      "split",
+      "merge",
+      "lot",
+      "history",
+      "tracking"
+    ],
+    "examples": [
+      "이 LOT가 분할된 적이 있어?",
+      "병합된 LOT 이력을 보여줘.",
+      "split/merge 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_move_history_query",
+    "description": "LOT의 이동 이력과 이동 시점을 조회한다.",
+    "tags": [
+      "move",
+      "history",
+      "lot",
+      "transfer",
+      "time"
+    ],
+    "examples": [
+      "LOT 이동 이력을 보고 싶어.",
+      "어느 장비에서 어디로 이동했는지 알려줘.",
+      "최근 반입/반출 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_target_completion_query",
+    "description": "LOT의 목표 완료 시점과 지연 여부를 조회한다.",
+    "tags": [
+      "target",
+      "completion",
+      "due",
+      "lot",
+      "delay"
+    ],
+    "examples": [
+      "이 LOT 예정 완료 시간이 언제야?",
+      "납기 지연 여부를 조회해줘.",
+      "목표 완료일 대비 진행 상태를 알려줘."
+    ]
+  },
+  {
+    "tool_name": "lot_eta_query",
+    "description": "LOT의 예상 완료 시간을 계산하여 조회한다.",
+    "tags": [
+      "eta",
+      "lot",
+      "prediction",
+      "completion",
+      "forecast"
+    ],
+    "examples": [
+      "이 LOT는 언제 끝날 것 같아?",
+      "예상 완료 시간을 알려줘.",
+      "현재 진행 기준 ETA를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_queue_time_query",
+    "description": "LOT의 대기 시간과 큐 체류 시간을 조회한다.",
+    "tags": [
+      "queue",
+      "time",
+      "lot",
+      "waiting",
+      "delay"
+    ],
+    "examples": [
+      "이 LOT가 얼마나 대기 중이야?",
+      "공정별 큐 체류 시간을 알려줘.",
+      "대기 시간이 긴 LOT를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "product_mix_query",
+    "description": "제품군별 생산 믹스와 비중을 조회한다.",
+    "tags": [
+      "product",
+      "mix",
+      "비중",
+      "portfolio",
+      "production"
+    ],
+    "examples": [
+      "이번 주 제품 믹스가 어떻게 돼?",
+      "제품군별 비중을 보여줘.",
+      "생산 포트폴리오 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_start_release_query",
+    "description": "LOT의 시작 승인과 릴리즈 상태를 조회한다.",
+    "tags": [
+      "release",
+      "start",
+      "lot",
+      "approval",
+      "status"
+    ],
+    "examples": [
+      "이 LOT는 release 됐어?",
+      "투입 승인 상태를 알려줘.",
+      "시작 가능한 LOT 목록을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_completed_query",
+    "description": "완료된 LOT 목록과 완료 시점을 조회한다.",
+    "tags": [
+      "completed",
+      "lot",
+      "finish",
+      "time",
+      "history"
+    ],
+    "examples": [
+      "오늘 완료된 LOT를 보여줘.",
+      "완료 시점 기준으로 조회해줘.",
+      "종료된 LOT 목록을 알려줘."
+    ]
+  },
+  {
+    "tool_name": "lot_scrap_query",
+    "description": "스크랩 처리된 LOT와 수량을 조회한다.",
+    "tags": [
+      "scrap",
+      "lot",
+      "폐기",
+      "loss",
+      "quantity"
+    ],
+    "examples": [
+      "스크랩된 LOT가 얼마나 돼?",
+      "폐기 내역을 조회해줘.",
+      "이번 달 scrap 현황을 보여줘."
+    ]
+  },
+  {
+    "tool_name": "lot_recycle_query",
+    "description": "재활용 가능 LOT와 재처리 내역을 조회한다.",
+    "tags": [
+      "recycle",
+      "reprocess",
+      "lot",
+      "재활용",
+      "history"
+    ],
+    "examples": [
+      "재활용 가능한 LOT가 있어?",
+      "재처리 대상으로 분류된 내역을 보여줘.",
+      "recycle 처리된 LOT를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_priority_reorder_query",
+    "description": "LOT 우선순위 재정렬 결과를 조회한다.",
+    "tags": [
+      "priority",
+      "reorder",
+      "lot",
+      "dispatch",
+      "schedule"
+    ],
+    "examples": [
+      "우선순위가 다시 정렬된 결과를 보여줘.",
+      "긴급 LOT 반영 후 순서를 조회해줘.",
+      "디스패치 우선순위 재계산 결과를 알려줘."
+    ]
+  },
+  {
+    "tool_name": "defect_summary_query",
+    "description": "불량 요약 현황을 공정별로 조회한다.",
+    "tags": [
+      "defect",
+      "summary",
+      "불량",
+      "process",
+      "analysis"
+    ],
+    "examples": [
+      "공정별 불량 요약을 보여줘.",
+      "이번 달 defect 현황을 알려줘.",
+      "불량이 많은 공정을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "defect_classification_query",
+    "description": "불량 분류 코드와 분류 결과를 조회한다.",
+    "tags": [
+      "defect",
+      "classification",
+      "분류",
+      "code",
+      "reason"
+    ],
+    "examples": [
+      "불량 코드별 분류 결과를 보여줘.",
+      "어떤 유형의 defect가 많은지 알려줘.",
+      "불량 분류 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "defect_correlation_query",
+    "description": "불량과 공정 조건 간의 상관관계를 조회한다.",
+    "tags": [
+      "defect",
+      "correlation",
+      "조건",
+      "분석",
+      "quality"
+    ],
+    "examples": [
+      "어떤 조건에서 불량이 늘었는지 알려줘.",
+      "불량과 장비 조건의 상관관계를 보고 싶어.",
+      "defect correlation을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "defect_repair_rate_query",
+    "description": "불량 수리율과 재발률을 조회한다.",
+    "tags": [
+      "defect",
+      "repair",
+      "rework",
+      "수리율",
+      "rate"
+    ],
+    "examples": [
+      "불량 수리율이 어떻게 돼?",
+      "재발률이 높은 항목을 알려줘.",
+      "수리 성공률을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "defect_top_reason_query",
+    "description": "주요 불량 사유 상위 항목을 조회한다.",
+    "tags": [
+      "defect",
+      "reason",
+      "top",
+      "불량",
+      "cause"
+    ],
+    "examples": [
+      "가장 많은 불량 사유가 뭐야?",
+      "상위 불량 원인을 보여줘.",
+      "주요 defect reason을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "defect_map_query",
+    "description": "웨이퍼 맵 기반 불량 분포를 조회한다.",
+    "tags": [
+      "defect",
+      "map",
+      "wafer",
+      "distribution",
+      "pattern"
+    ],
+    "examples": [
+      "웨이퍼 맵에서 불량 분포를 보여줘.",
+      "패턴성 불량이 있는지 조회해줘.",
+      "defect map 현황을 알려줘."
+    ]
+  },
+  {
+    "tool_name": "yield_loss_rootcause_query",
+    "description": "수율 저하의 주요 원인과 기여도를 조회한다.",
+    "tags": [
+      "yield",
+      "loss",
+      "rootcause",
+      "분석",
+      "quality"
+    ],
+    "examples": [
+      "수율이 떨어진 원인이 뭐야?",
+      "yield loss 원인 분석을 보여줘.",
+      "주요 저하 요인을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "yield_trend_query",
+    "description": "수율 추세를 기간별로 조회한다.",
+    "tags": [
+      "yield",
+      "trend",
+      "추세",
+      "기간",
+      "analysis"
+    ],
+    "examples": [
+      "최근 수율 추세를 보여줘.",
+      "월별 yield trend를 알려줘.",
+      "수율이 올라가고 있는지 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "yield_by_product_query",
+    "description": "제품별 수율을 비교 조회한다.",
+    "tags": [
+      "yield",
+      "product",
+      "비교",
+      "수율",
+      "model"
+    ],
+    "examples": [
+      "제품별 수율 차이를 보여줘.",
+      "어떤 제품 수율이 높은지 알려줘.",
+      "product yield를 비교해줘."
+    ]
+  },
+  {
+    "tool_name": "yield_by_equipment_query",
+    "description": "설비별 수율 차이를 조회한다.",
+    "tags": [
+      "yield",
+      "equipment",
+      "설비",
+      "비교",
+      "quality"
+    ],
+    "examples": [
+      "장비별 수율을 비교해줘.",
+      "어느 설비에서 수율이 낮아?",
+      "equipment yield 현황을 보여줘."
+    ]
+  },
+  {
+    "tool_name": "yield_by_shift_query",
+    "description": "근무조별 수율을 조회한다.",
+    "tags": [
+      "yield",
+      "shift",
+      "근무조",
+      "비교",
+      "analysis"
+    ],
+    "examples": [
+      "주간조와 야간조 수율 차이가 있어?",
+      "shift별 수율을 보여줘.",
+      "조별 생산 품질을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "spc_control_chart_query",
+    "description": "SPC 관리도 데이터를 조회한다.",
+    "tags": [
+      "spc",
+      "control",
+      "chart",
+      "통계",
+      "quality"
+    ],
+    "examples": [
+      "SPC 관리도를 보여줘.",
+      "관리한계 밖 데이터가 있는지 알려줘.",
+      "control chart 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "spc_violation_query",
+    "description": "SPC 규격 위반 내역을 조회한다.",
+    "tags": [
+      "spc",
+      "violation",
+      "위반",
+      "spec",
+      "alert"
+    ],
+    "examples": [
+      "규격 위반이 있었는지 조회해줘.",
+      "SPC 룰을 벗어난 항목이 뭐야?",
+      "violation 내역을 보여줘."
+    ]
+  },
+  {
+    "tool_name": "spc_capability_query",
+    "description": "공정 능력지수(Cp/Cpk)를 조회한다.",
+    "tags": [
+      "spc",
+      "capability",
+      "cpk",
+      "cp",
+      "process"
+    ],
+    "examples": [
+      "Cpk가 낮은 공정을 알려줘.",
+      "공정능력 지표를 조회해줘.",
+      "SPC capability 현황을 보여줘."
+    ]
+  },
+  {
+    "tool_name": "spc_outlier_query",
+    "description": "이상치 데이터를 탐지하여 조회한다.",
+    "tags": [
+      "spc",
+      "outlier",
+      "이상치",
+      "anomaly",
+      "data"
+    ],
+    "examples": [
+      "이상치가 있는 측정값을 보여줘.",
+      "SPC에서 튄 데이터가 있어?",
+      "outlier 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "spc_shift_change_query",
+    "description": "교대조 변경 시 SPC 변동을 조회한다.",
+    "tags": [
+      "spc",
+      "shift",
+      "변동",
+      "change",
+      "quality"
+    ],
+    "examples": [
+      "교대조 변경 시 품질이 달라져?",
+      "shift change 전후 SPC를 보여줘.",
+      "조 변경 영향 분석을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "metrology_measurement_query",
+    "description": "계측 측정값과 측정 이력을 조회한다.",
+    "tags": [
+      "metrology",
+      "measurement",
+      "측정",
+      "이력",
+      "quality"
+    ],
+    "examples": [
+      "최근 측정값을 보여줘.",
+      "계측 이력을 조회해줘.",
+      "metrology 결과를 알려줘."
+    ]
+  },
+  {
+    "tool_name": "metrology_spec_out_query",
+    "description": "규격 이탈 측정값을 조회한다.",
+    "tags": [
+      "metrology",
+      "spec",
+      "out",
+      "규격",
+      "measurement"
+    ],
+    "examples": [
+      "규격 밖으로 나온 측정값이 뭐야?",
+      "spec out 항목을 조회해줘.",
+      "기준 초과 데이터를 보여줘."
+    ]
+  },
+  {
+    "tool_name": "metrology_recheck_query",
+    "description": "재측정 대상과 재측정 결과를 조회한다.",
+    "tags": [
+      "metrology",
+      "recheck",
+      "재측정",
+      "result",
+      "quality"
+    ],
+    "examples": [
+      "재측정된 LOT를 보여줘.",
+      "recheck 결과를 조회해줘.",
+      "다시 측정한 내역이 있어?"
+    ]
+  },
+  {
+    "tool_name": "metrology_sampling_query",
+    "description": "샘플링 측정 계획과 수행 결과를 조회한다.",
+    "tags": [
+      "metrology",
+      "sampling",
+      "샘플",
+      "plan",
+      "result"
+    ],
+    "examples": [
+      "이번 배치 샘플링 결과를 보여줘.",
+      "측정 샘플 계획이 어떻게 돼?",
+      "sampling 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "metrology_tool_calibration_query",
+    "description": "측정 장비 교정 이력을 조회한다.",
+    "tags": [
+      "metrology",
+      "calibration",
+      "교정",
+      "equipment",
+      "history"
+    ],
+    "examples": [
+      "계측기 교정 이력을 보여줘.",
+      "최근 calibration 상태를 알려줘.",
+      "측정 장비 교정 만료가 있어?"
+    ]
+  },
+  {
+    "tool_name": "quality_hold_release_query",
+    "description": "품질 HOLD와 RELEASE 상태를 조회한다.",
+    "tags": [
+      "quality",
+      "hold",
+      "release",
+      "보류",
+      "승인"
+    ],
+    "examples": [
+      "품질 HOLD된 LOT가 뭐야?",
+      "release 승인된 내역을 조회해줘.",
+      "보류 해제 대상이 있는지 알려줘."
+    ]
+  },
+  {
+    "tool_name": "quality_audit_trail_query",
+    "description": "품질 승인 및 변경 감사 이력을 조회한다.",
+    "tags": [
+      "quality",
+      "audit",
+      "이력",
+      "approval",
+      "trace"
+    ],
+    "examples": [
+      "품질 변경 이력을 보여줘.",
+      "누가 승인했는지 조회해줘.",
+      "audit trail을 확인하고 싶어."
+    ]
+  },
+  {
+    "tool_name": "quality_nonconformance_query",
+    "description": "부적합 보고서와 처리 상태를 조회한다.",
+    "tags": [
+      "quality",
+      "nc",
+      "부적합",
+      "report",
+      "status"
+    ],
+    "examples": [
+      "부적합 보고서를 보여줘.",
+      "처리 중인 NCR이 있어?",
+      "nonconformance 내역을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "quality_review_due_query",
+    "description": "정기 품질 검토 예정 항목을 조회한다.",
+    "tags": [
+      "quality",
+      "review",
+      "검토",
+      "due",
+      "schedule"
+    ],
+    "examples": [
+      "이번 주 품질 검토 일정이 있어?",
+      "검토 예정 안건을 보여줘.",
+      "quality review 대상 목록을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "quality_customer_complaint_query",
+    "description": "고객 클레임과 대응 현황을 조회한다.",
+    "tags": [
+      "quality",
+      "complaint",
+      "고객",
+      "대응",
+      "issue"
+    ],
+    "examples": [
+      "고객 클레임 현황을 보여줘.",
+      "대응 중인 이슈가 뭐야?",
+      "클레임 처리 상태를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "capacity_plan_query",
+    "description": "공정별 생산 능력 계획을 조회한다.",
+    "tags": [
+      "capacity",
+      "plan",
+      "능력",
+      "공정",
+      "schedule"
+    ],
+    "examples": [
+      "이번 달 capacity 계획을 보여줘.",
+      "라인별 생산 능력을 조회해줘.",
+      "공정별 CAPA 계획이 어떻게 돼?"
+    ]
+  },
+  {
+    "tool_name": "capacity_gap_query",
+    "description": "수요 대비 생산 능력 격차를 조회한다.",
+    "tags": [
+      "capacity",
+      "gap",
+      "격차",
+      "demand",
+      "planning"
+    ],
+    "examples": [
+      "수요 대비 부족한 구간이 있어?",
+      "capacity gap을 보여줘.",
+      "생산 능력 부족 공정을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "schedule_adherence_query",
+    "description": "계획 대비 실적 준수율을 조회한다.",
+    "tags": [
+      "schedule",
+      "adherence",
+      "준수",
+      "plan",
+      "performance"
+    ],
+    "examples": [
+      "일정 준수율이 어떻게 돼?",
+      "계획 대비 실적을 보여줘.",
+      "스케줄 이탈 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "schedule_delay_query",
+    "description": "지연된 작업과 지연 사유를 조회한다.",
+    "tags": [
+      "schedule",
+      "delay",
+      "지연",
+      "reason",
+      "work"
+    ],
+    "examples": [
+      "지연된 작업을 보여줘.",
+      "어떤 이유로 늦어졌는지 알려줘.",
+      "schedule delay 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "schedule_forecast_query",
+    "description": "향후 생산 일정과 예상 부하를 조회한다.",
+    "tags": [
+      "schedule",
+      "forecast",
+      "예상",
+      "load",
+      "planning"
+    ],
+    "examples": [
+      "다음 주 일정 예측을 보여줘.",
+      "앞으로 부하가 어떻게 될지 알려줘.",
+      "schedule forecast를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "tooling_lifetime_query",
+    "description": "치공구의 사용 수명과 교체 시점을 조회한다.",
+    "tags": [
+      "tooling",
+      "lifetime",
+      "치공구",
+      "교체",
+      "usage"
+    ],
+    "examples": [
+      "치공구 수명이 얼마나 남았어?",
+      "교체 예정 공구를 알려줘.",
+      "tooling lifetime을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "tooling_inventory_query",
+    "description": "치공구 재고 수량과 위치를 조회한다.",
+    "tags": [
+      "tooling",
+      "inventory",
+      "재고",
+      "위치",
+      "quantity"
+    ],
+    "examples": [
+      "현재 치공구 재고를 보여줘.",
+      "어느 창고에 있는지 조회해줘.",
+      "tooling inventory 현황을 알려줘."
+    ]
+  },
+  {
+    "tool_name": "cleanroom_contamination_query",
+    "description": "클린룸 오염도와 이력 데이터를 조회한다.",
+    "tags": [
+      "cleanroom",
+      "contamination",
+      "오염",
+      "이력",
+      "environment"
+    ],
+    "examples": [
+      "클린룸 오염도 현황을 보여줘.",
+      "오염 이력이 있었는지 조회해줘.",
+      "contamination 데이터를 알려줘."
+    ]
+  },
+  {
+    "tool_name": "cleanroom_environment_query",
+    "description": "클린룸 온습도와 환경 상태를 조회한다.",
+    "tags": [
+      "cleanroom",
+      "environment",
+      "온습도",
+      "temperature",
+      "humidity"
+    ],
+    "examples": [
+      "클린룸 온습도를 보여줘.",
+      "환경 기준을 벗어난 곳이 있어?",
+      "cleanroom 환경 상태를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "esd_compliance_query",
+    "description": "ESD 준수 상태와 위반 내역을 조회한다.",
+    "tags": [
+      "esd",
+      "compliance",
+      "준수",
+      "위반",
+      "quality"
+    ],
+    "examples": [
+      "ESD 위반 내역이 있어?",
+      "준수 상태를 보여줘.",
+      "esd compliance를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "material_supply_query",
+    "description": "소재 공급 현황과 입고 상태를 조회한다.",
+    "tags": [
+      "material",
+      "supply",
+      "입고",
+      "공급",
+      "inventory"
+    ],
+    "examples": [
+      "소재 입고 현황을 알려줘.",
+      "필요 자재가 부족한지 조회해줘.",
+      "material supply 상태를 보여줘."
+    ]
+  },
+  {
+    "tool_name": "material_shortage_query",
+    "description": "자재 부족 현황과 영향 공정을 조회한다.",
+    "tags": [
+      "material",
+      "shortage",
+      "부족",
+      "impact",
+      "supply"
+    ],
+    "examples": [
+      "부족한 자재가 뭐야?",
+      "어떤 공정이 영향받는지 알려줘.",
+      "material shortage 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "warehouse_stock_query",
+    "description": "창고 재고와 보관 위치를 조회한다.",
+    "tags": [
+      "warehouse",
+      "stock",
+      "재고",
+      "location",
+      "inventory"
+    ],
+    "examples": [
+      "창고 재고를 보여줘.",
+      "어느 위치에 보관 중인지 알려줘.",
+      "warehouse stock 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "shipment_ready_query",
+    "description": "출하 준비 완료 LOT와 패키지를 조회한다.",
+    "tags": [
+      "shipment",
+      "ready",
+      "출하",
+      "패키지",
+      "status"
+    ],
+    "examples": [
+      "출하 준비된 LOT를 보여줘.",
+      "shipment ready 상태를 조회해줘.",
+      "출하 가능 물량이 얼마야?"
+    ]
+  },
+  {
+    "tool_name": "customer_commitment_query",
+    "description": "고객 약속 일정과 납기 준수 상태를 조회한다.",
+    "tags": [
+      "customer",
+      "commitment",
+      "납기",
+      "delivery",
+      "promise"
+    ],
+    "examples": [
+      "고객 약속 일정이 어떻게 돼?",
+      "납기 준수 상태를 보여줘.",
+      "customer commitment 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "oee_summary_query",
+    "description": "설비 종합효율(OEE) 요약을 조회한다.",
+    "tags": [
+      "oee",
+      "efficiency",
+      "설비",
+      "요약",
+      "performance"
+    ],
+    "examples": [
+      "OEE 현황을 보여줘.",
+      "설비 종합효율이 낮은 곳이 있어?",
+      "oee summary를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "oee_loss_breakdown_query",
+    "description": "OEE 손실 요인을 가동, 성능, 품질로 분해하여 조회한다.",
+    "tags": [
+      "oee",
+      "loss",
+      "가동",
+      "성능",
+      "품질"
+    ],
+    "examples": [
+      "OEE 손실이 어디서 발생했는지 보여줘.",
+      "가동/성능/품질 손실을 분해해줘.",
+      "loss breakdown을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "throughput_query",
+    "description": "시간당 또는 일별 처리량을 조회한다.",
+    "tags": [
+      "throughput",
+      "처리량",
+      "output",
+      "rate",
+      "production"
+    ],
+    "examples": [
+      "오늘 처리량이 얼마나 돼?",
+      "시간당 throughput을 보여줘.",
+      "라인 출력량을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "takt_time_query",
+    "description": "목표 생산 속도 대비 택트 타임을 조회한다.",
+    "tags": [
+      "takt",
+      "time",
+      "속도",
+      "목표",
+      "production"
+    ],
+    "examples": [
+      "현재 takt time이 맞는지 알려줘.",
+      "목표 대비 생산 속도를 보여줘.",
+      "takt time 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "cycle_time_distribution_query",
+    "description": "사이클 타임의 분포와 이상 구간을 조회한다.",
+    "tags": [
+      "cycle",
+      "distribution",
+      "분포",
+      "이상",
+      "time"
+    ],
+    "examples": [
+      "사이클 타임 분포를 보여줘.",
+      "이상하게 긴 구간이 어디야?",
+      "cycle time distribution을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_waste_query",
+    "description": "공정 손실량과 폐기량을 조회한다.",
+    "tags": [
+      "waste",
+      "loss",
+      "폐기",
+      "공정",
+      "quantity"
+    ],
+    "examples": [
+      "공정 손실량을 보여줘.",
+      "어느 구간에서 폐기가 많아?",
+      "process waste 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_utilization_query",
+    "description": "공정 자원 활용률을 조회한다.",
+    "tags": [
+      "utilization",
+      "process",
+      "활용률",
+      "resource",
+      "load"
+    ],
+    "examples": [
+      "공정 활용률이 어떻게 돼?",
+      "자원이 덜 쓰이는 구간을 알려줘.",
+      "process utilization을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "operator_shift_assignment_query",
+    "description": "작업자 교대 배치와 담당 공정을 조회한다.",
+    "tags": [
+      "operator",
+      "shift",
+      "배치",
+      "담당",
+      "workforce"
+    ],
+    "examples": [
+      "오늘 작업자 배치를 보여줘.",
+      "누가 어떤 공정을 맡고 있어?",
+      "shift assignment를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "operator_skill_match_query",
+    "description": "작업자의 숙련도와 공정 적합도를 조회한다.",
+    "tags": [
+      "operator",
+      "skill",
+      "숙련도",
+      "match",
+      "process"
+    ],
+    "examples": [
+      "이 작업자가 이 공정을 할 수 있어?",
+      "숙련도 매칭 결과를 보여줘.",
+      "operator skill match를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "training_completion_query",
+    "description": "교육 이수 현황과 미이수 항목을 조회한다.",
+    "tags": [
+      "training",
+      "completion",
+      "교육",
+      "이수",
+      "compliance"
+    ],
+    "examples": [
+      "교육 이수 현황을 보여줘.",
+      "미이수 인원이 누구야?",
+      "training completion을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "engineering_change_query",
+    "description": "공정 변경 승인과 변경 내역을 조회한다.",
+    "tags": [
+      "engineering",
+      "change",
+      "변경",
+      "승인",
+      "history"
+    ],
+    "examples": [
+      "최근 공정 변경 내역을 보여줘.",
+      "승인된 변경 요청이 있어?",
+      "engineering change를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "change_effect_analysis_query",
+    "description": "공정 변경이 품질과 수율에 미친 영향을 조회한다.",
+    "tags": [
+      "change",
+      "effect",
+      "영향",
+      "yield",
+      "quality"
+    ],
+    "examples": [
+      "공정 변경 후 수율이 어떻게 변했어?",
+      "변경 영향 분석을 보여줘.",
+      "change effect를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "process_deviation_query",
+    "description": "공정 이탈과 기준 초과 내역을 조회한다.",
+    "tags": [
+      "deviation",
+      "process",
+      "이탈",
+      "spec",
+      "exception"
+    ],
+    "examples": [
+      "공정 이탈 내역이 있어?",
+      "기준 초과 조건을 보여줘.",
+      "process deviation을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "anomaly_detection_query",
+    "description": "생산 데이터의 이상 징후를 탐지하여 조회한다.",
+    "tags": [
+      "anomaly",
+      "detection",
+      "이상",
+      "data",
+      "alert"
+    ],
+    "examples": [
+      "이상 징후가 있는 데이터를 보여줘.",
+      "anomaly detection 결과를 조회해줘.",
+      "급변한 공정이 있는지 알려줘."
+    ]
+  },
+  {
+    "tool_name": "production_exception_query",
+    "description": "생산 예외 상황과 처리 현황을 조회한다.",
+    "tags": [
+      "exception",
+      "production",
+      "예외",
+      "처리",
+      "status"
+    ],
+    "examples": [
+      "생산 예외가 발생한 건이 뭐야?",
+      "처리 중인 예외 상황을 보여줘.",
+      "production exception을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "factory_energy_usage_query",
+    "description": "공장 에너지 사용량과 절감 추이를 조회한다.",
+    "tags": [
+      "energy",
+      "usage",
+      "에너지",
+      "절감",
+      "factory"
+    ],
+    "examples": [
+      "공장 에너지 사용량을 보여줘.",
+      "전력 사용 추이를 조회해줘.",
+      "절감 효과가 있는지 알려줘."
+    ]
+  },
+  {
+    "tool_name": "utility_pressure_query",
+    "description": "유틸리티 압력 상태와 이상 여부를 조회한다.",
+    "tags": [
+      "utility",
+      "pressure",
+      "압력",
+      "상태",
+      "facility"
+    ],
+    "examples": [
+      "유틸리티 압력이 정상인지 보여줘.",
+      "압력 이상 알람이 있었어?",
+      "utility pressure 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "chemical_usage_query",
+    "description": "공정별 화학약품 사용량과 소모 추이를 조회한다.",
+    "tags": [
+      "chemical",
+      "usage",
+      "화학약품",
+      "소모",
+      "process"
+    ],
+    "examples": [
+      "화학약품 사용량을 보여줘.",
+      "공정별 소모 추이를 알려줘.",
+      "chemical usage 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "chemical_expiry_query",
+    "description": "화학약품의 유통기한과 폐기 예정 항목을 조회한다.",
+    "tags": [
+      "chemical",
+      "expiry",
+      "유통기한",
+      "폐기",
+      "inventory"
+    ],
+    "examples": [
+      "유통기한이 임박한 약품이 있어?",
+      "폐기 예정 자재를 보여줘.",
+      "chemical expiry를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_aging_query",
+    "description": "장기 체류 LOT와 체류 기간을 조회한다.",
+    "tags": [
+      "lot",
+      "aging",
+      "체류",
+      "기간",
+      "delay"
+    ],
+    "examples": [
+      "오래 머문 LOT가 뭐야?",
+      "aging LOT 목록을 보여줘.",
+      "체류 기간이 긴 LOT를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_hotlist_query",
+    "description": "긴급 관리가 필요한 LOT 목록을 조회한다.",
+    "tags": [
+      "lot",
+      "hotlist",
+      "긴급",
+      "priority",
+      "control"
+    ],
+    "examples": [
+      "지금 집중 관리할 LOT가 있어?",
+      "hot list를 보여줘.",
+      "긴급 관리 대상 LOT를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "lot_release_block_query",
+    "description": "릴리즈가 막힌 LOT와 차단 사유를 조회한다.",
+    "tags": [
+      "lot",
+      "release",
+      "block",
+      "차단",
+      "reason"
+    ],
+    "examples": [
+      "release 안 되는 LOT가 뭐야?",
+      "차단 사유를 보여줘.",
+      "릴리즈 블록 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "material_trace_query",
+    "description": "투입 자재의 추적 이력과 사용 위치를 조회한다.",
+    "tags": [
+      "material",
+      "trace",
+      "추적",
+      "사용",
+      "lot"
+    ],
+    "examples": [
+      "이 자재가 어디에 쓰였는지 알려줘.",
+      "자재 추적 이력을 보여줘.",
+      "material trace를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "mask_inventory_query",
+    "description": "포토마스크 재고와 사용 가능 상태를 조회한다.",
+    "tags": [
+      "mask",
+      "inventory",
+      "포토마스크",
+      "재고",
+      "status"
+    ],
+    "examples": [
+      "포토마스크 재고가 얼마나 남았어?",
+      "사용 가능한 mask를 보여줘.",
+      "mask inventory를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "mask_damage_query",
+    "description": "포토마스크 손상 이력과 폐기 여부를 조회한다.",
+    "tags": [
+      "mask",
+      "damage",
+      "손상",
+      "폐기",
+      "history"
+    ],
+    "examples": [
+      "마스크 손상 이력이 있어?",
+      "폐기된 mask가 뭐야?",
+      "mask damage 현황을 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "probe_card_usage_query",
+    "description": "프로브 카드 사용 이력과 교체 시점을 조회한다.",
+    "tags": [
+      "probe",
+      "card",
+      "사용",
+      "교체",
+      "history"
+    ],
+    "examples": [
+      "프로브 카드 사용 이력을 보여줘.",
+      "교체 예정 probe card가 있어?",
+      "probe card usage를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "test_result_summary_query",
+    "description": "검사 및 테스트 결과 요약을 조회한다.",
+    "tags": [
+      "test",
+      "result",
+      "검사",
+      "요약",
+      "quality"
+    ],
+    "examples": [
+      "테스트 결과 요약을 보여줘.",
+      "검사 합격률이 어떻게 돼?",
+      "test result summary를 조회해줘."
+    ]
+  },
+  {
+    "tool_name": "final_inspection_query",
+    "description": "최종 검사 결과와 출하 판정 상태를 조회한다.",
+    "tags": [
+      "final",
+      "inspection",
+      "검사",
+      "출하",
+      "decision"
+    ],
+    "examples": [
+      "최종 검사 결과를 보여줘.",
+      "출하 판정이 난 LOT가 뭐야?",
+      "final inspection 현황을 조회해줘."
+    ]
+  }
+]
