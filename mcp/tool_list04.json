@@ -1,0 +1,2216 @@
+[
+    {
+        "tool_name": "wafer_yield_query",
+        "description": "특정 공정의 웨이퍼 수율을 조회한다.",
+        "tags": ["wafer", "yield", "수율", "process", "공정"],
+        "examples": [
+            "AAAA 라인의 BBBB공정 수율을 조회하고 싶어.",
+            "BBBB 공정의 지난 주 수율이 어떻게 되지?",
+            "저수율 웨이퍼 수율이 나온 공정이 어디야?"
+        ],
+        "input_schema": {
+            "line_id": "string",
+            "process_id": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "line_id": "string",
+            "yield": "float",
+            "wafer_count": "integer",
+            "good_die_count": "integer",
+            "fail_die_count": "integer",
+            "measured_at": "datetime"
+        }
+    },
+    {
+        "tool_name": "line_summary_query",
+        "description": "라인 전체 생산 현황을 요약한 대시보드를 제공한다.",
+        "tags": ["line", "summary", "요약", "현황", "대시보드"],
+        "examples": [
+            "라인 현황을 한 눈에 보고 싶어.",
+            "전체 생산 현황에 대해 요약해줘.",
+            "대시보드 형태로 라인 생산 현황을 알려줘"
+        ],
+        "input_schema": {
+            "line_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "line_id": "string",
+            "total_wafer_in": "integer",
+            "total_wafer_out": "integer",
+            "average_yield": "float",
+            "active_lots": "integer",
+            "alarm_count": "integer",
+            "throughput_per_hour": "float",
+            "snapshot_time": "datetime"
+        }
+    },
+    {
+        "tool_name": "wafer_ingot_growth_status",
+        "description": "잉곳 성장 공정의 진행 상태와 결정 품질을 조회한다.",
+        "tags": ["ingot", "잉곳", "성장", "결정", "wafer"],
+        "examples": [
+            "현재 잉곳 성장 공정 상태를 알려줘.",
+            "Czochralski 공정 결정 성장 상태가 어때?",
+            "잉곳 인상 속도와 온도 데이터를 보여줘.",
+            "결정 품질에 이상이 있는 잉곳이 있어?"
+        ],
+        "input_schema": {
+            "ingot_id": "string",
+            "growth_method": "string"
+        },
+        "output_schema": {
+            "ingot_id": "string",
+            "growth_method": "string",
+            "pull_rate_mm_per_min": "float",
+            "temperature_c": "float",
+            "diameter_mm": "float",
+            "current_length_mm": "float",
+            "crystal_quality_grade": "string",
+            "status": "string"
+        }
+    },
+    {
+        "tool_name": "wafer_slicing_dimension_check",
+        "description": "웨이퍼 슬라이싱 후 두께와 직경 치수를 점검한다.",
+        "tags": ["slicing", "두께", "직경", "치수", "wafer"],
+        "examples": [
+            "웨이퍼 슬라이싱 두께 측정 결과 보여줘.",
+            "이번 배치 웨이퍼 직경 규격 만족하는지 확인해줘.",
+            "슬라이싱 공정 후 두께 편차가 큰 웨이퍼를 알려줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "batch_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_count": "integer",
+            "avg_thickness_um": "float",
+            "thickness_std_um": "float",
+            "avg_diameter_mm": "float",
+            "out_of_spec_count": "integer",
+            "spec_pass_rate": "float"
+        }
+    },
+    {
+        "tool_name": "wafer_lapping_status_query",
+        "description": "웨이퍼 래핑 공정의 진행 상황과 표면 평탄도를 조회한다.",
+        "tags": ["lapping", "래핑", "평탄도", "표면", "wafer"],
+        "examples": [
+            "래핑 공정 진행 상황 알려줘.",
+            "웨이퍼 평탄도 측정 결과 조회해줘.",
+            "래핑 후 TTV 값 확인하고 싶어."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "process_status": "string",
+            "ttv_um": "float",
+            "flatness_um": "float",
+            "wafer_count": "integer",
+            "completion_rate": "float"
+        }
+    },
+    {
+        "tool_name": "wafer_polishing_quality_check",
+        "description": "웨이퍼 폴리싱 후 표면 품질과 거칠기를 검사한다.",
+        "tags": ["polishing", "폴리싱", "표면", "거칠기", "품질"],
+        "examples": [
+            "CMP 폴리싱 후 표면 거칠기 결과 보여줘.",
+            "웨이퍼 폴리싱 품질 검사 데이터 조회해줘.",
+            "표면 결함이 있는 폴리싱 웨이퍼 리스트 알려줘.",
+            "Ra 값이 기준치를 넘은 웨이퍼가 있어?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "ra_nm": "float",
+            "rms_nm": "float",
+            "surface_defect_count": "integer",
+            "spec_pass": "boolean",
+            "inspected_at": "datetime"
+        }
+    },
+    {
+        "tool_name": "wafer_cleaning_recipe_lookup",
+        "description": "웨이퍼 세정 공정의 레시피와 화학 약품 정보를 조회한다.",
+        "tags": ["cleaning", "세정", "레시피", "화학약품", "RCA"],
+        "examples": [
+            "RCA 세정 레시피 내용 알려줘.",
+            "웨이퍼 세정 공정에서 사용하는 화학약품 리스트 보여줘.",
+            "현재 적용된 세정 레시피 파라미터 조회해줘."
+        ],
+        "input_schema": {
+            "recipe_id": "string"
+        },
+        "output_schema": {
+            "recipe_id": "string",
+            "recipe_name": "string",
+            "chemicals": "array",
+            "temperature_c": "float",
+            "duration_sec": "integer",
+            "step_count": "integer",
+            "last_updated": "datetime"
+        }
+    },
+    {
+        "tool_name": "wafer_inspection_defect_count",
+        "description": "웨이퍼 입고 검사에서 검출된 결함 수를 집계한다.",
+        "tags": ["inspection", "결함", "defect", "검사", "wafer"],
+        "examples": [
+            "오늘 입고된 웨이퍼 결함 수 알려줘.",
+            "웨이퍼 검사에서 디펙트가 가장 많이 나온 로트는?",
+            "결함 카운트 상위 10개 웨이퍼 보여줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "start_date": "date",
+            "end_date": "date",
+            "top_n": "integer"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "total_defect_count": "integer",
+            "defect_density_per_cm2": "float",
+            "top_defect_types": "array",
+            "inspected_wafer_count": "integer"
+        }
+    },
+    {
+        "tool_name": "wafer_lot_traceability_search",
+        "description": "웨이퍼 로트 번호로 전체 이력 추적 정보를 검색한다.",
+        "tags": ["lot", "traceability", "이력", "추적", "wafer"],
+        "examples": [
+            "이 웨이퍼 로트 번호 이력 조회해줘.",
+            "특정 로트가 어느 공정 거쳤는지 추적해줘.",
+            "Lot ID로 웨이퍼 처리 히스토리 보여줘.",
+            "이 로트의 원자재 입고일이 언제야?"
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "raw_material_in_date": "date",
+            "current_step": "string",
+            "process_history": "array",
+            "current_location": "string",
+            "wafer_count": "integer"
+        }
+    },
+    {
+        "tool_name": "wafer_bow_warp_measurement",
+        "description": "웨이퍼의 휨(Bow) 및 굽힘(Warp) 측정값을 확인한다.",
+        "tags": ["bow", "warp", "휨", "측정", "wafer"],
+        "examples": [
+            "웨이퍼 Bow 측정 결과 보여줘.",
+            "Warp 값이 스펙 초과한 웨이퍼 리스트 알려줘.",
+            "이번 로트 평균 Bow/Warp 값 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_bow_um": "float",
+            "avg_warp_um": "float",
+            "bow_std": "float",
+            "warp_std": "float",
+            "out_of_spec_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "oxidation_thickness_measurement",
+        "description": "산화막 두께 측정 결과를 조회한다.",
+        "tags": ["oxidation", "산화", "두께", "측정", "oxide"],
+        "examples": [
+            "게이트 산화막 두께 측정 결과 알려줘.",
+            "오늘 산화 공정 후 두께 분포 보여줘.",
+            "산화막 두께가 스펙 벗어난 웨이퍼 있어?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "process_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_thickness_angstrom": "float",
+            "thickness_std": "float",
+            "min_thickness": "float",
+            "max_thickness": "float",
+            "out_of_spec_count": "integer"
+        }
+    },
+    {
+        "tool_name": "oxidation_furnace_temperature_log",
+        "description": "산화 공정 퍼니스의 온도 로그 데이터를 조회한다.",
+        "tags": ["furnace", "퍼니스", "온도", "로그", "oxidation"],
+        "examples": [
+            "산화 퍼니스 온도 로그 보여줘.",
+            "지난 24시간 산화 공정 온도 추이 알려줘.",
+            "퍼니스 온도 이상 감지된 시점 조회해줘.",
+            "산화로 zone별 온도 편차가 어때?"
+        ],
+        "input_schema": {
+            "furnace_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "furnace_id": "string",
+            "log_entries": "array",
+            "zone_temperatures": "object",
+            "anomaly_count": "integer",
+            "max_deviation_c": "float"
+        }
+    },
+    {
+        "tool_name": "dry_oxidation_process_status",
+        "description": "건식 산화 공정의 현재 진행 상태를 조회한다.",
+        "tags": ["dry oxidation", "건식산화", "공정상태", "진행", "oxidation"],
+        "examples": [
+            "건식 산화 공정 진행 현황 알려줘.",
+            "Dry oxidation 챔버 상태 어떄?",
+            "현재 건식 산화 진행 중인 로트 보여줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "current_lot_id": "string",
+            "elapsed_time_min": "float",
+            "remaining_time_min": "float",
+            "temperature_c": "float"
+        }
+    },
+    {
+        "tool_name": "wet_oxidation_process_status",
+        "description": "습식 산화 공정의 현재 진행 상태를 조회한다.",
+        "tags": ["wet oxidation", "습식산화", "공정상태", "진행", "oxidation"],
+        "examples": [
+            "습식 산화 공정 상태 알려줘.",
+            "Wet oxidation 챔버 운영 현황 보여줘.",
+            "습식 산화 진행 중인 웨이퍼 리스트 조회해줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "current_lot_id": "string",
+            "wafer_list": "array",
+            "h2o_flow_sccm": "float",
+            "temperature_c": "float"
+        }
+    },
+    {
+        "tool_name": "oxide_uniformity_analysis",
+        "description": "산화막의 두께 균일도(Uniformity)를 분석한다.",
+        "tags": ["uniformity", "균일도", "산화막", "분석", "oxide"],
+        "examples": [
+            "산화막 균일도 분석 결과 보여줘.",
+            "Wafer 내 oxide uniformity 데이터 조회해줘.",
+            "균일도 불량 웨이퍼 리스트 알려줘.",
+            "산화 공정 평균 uniformity 트렌드가 어때?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "uniformity_percent": "float",
+            "center_thickness": "float",
+            "edge_thickness": "float",
+            "ng_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "gate_oxide_breakdown_test",
+        "description": "게이트 산화막의 절연 파괴 전압 시험 결과를 조회한다.",
+        "tags": ["gate oxide", "breakdown", "절연파괴", "시험", "oxide"],
+        "examples": [
+            "게이트 산화막 breakdown 테스트 결과 알려줘.",
+            "BV 측정값 기준치 미달 웨이퍼 리스트 보여줘.",
+            "Gate oxide 절연 특성 평가 결과 조회해줘.",
+            "최근 BV 평균 트렌드가 어때?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_bv_volt": "float",
+            "min_bv_volt": "float",
+            "fail_count": "integer",
+            "pass_rate": "float",
+            "fail_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "photo_mask_alignment_check",
+        "description": "포토 공정의 마스크 얼라인먼트 정합도를 점검한다.",
+        "tags": ["mask", "alignment", "정합도", "photo", "포토"],
+        "examples": [
+            "포토 공정 마스크 얼라인 결과 알려줘.",
+            "이번 로트 정합도 측정값 보여줘.",
+            "Overlay 측정 결과 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "layer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "layer_id": "string",
+            "alignment_x_nm": "float",
+            "alignment_y_nm": "float",
+            "alignment_pass": "boolean",
+            "measured_at": "datetime"
+        }
+    },
+    {
+        "tool_name": "photoresist_coating_thickness",
+        "description": "포토레지스트 코팅 두께 측정 결과를 조회한다.",
+        "tags": ["photoresist", "coating", "두께", "PR", "photo"],
+        "examples": [
+            "PR 코팅 두께 측정 결과 보여줘.",
+            "포토레지스트 두께 분포 조회해줘.",
+            "코팅 두께 스펙 벗어난 웨이퍼 알려줘.",
+            "PR 두께 균일도 트렌드는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "process_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_thickness_nm": "float",
+            "thickness_uniformity_percent": "float",
+            "out_of_spec_wafer_ids": "array",
+            "measured_at": "datetime"
+        }
+    },
+    {
+        "tool_name": "exposure_dose_record",
+        "description": "노광 공정에서 적용된 도즈량 기록을 조회한다.",
+        "tags": ["exposure", "노광", "dose", "도즈", "photo"],
+        "examples": [
+            "노광 공정 도즈량 기록 보여줘.",
+            "오늘 적용된 exposure dose 조회해줘.",
+            "Dose 변경 이력 알려줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "stepper_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "stepper_id": "string",
+            "dose_mj_per_cm2": "float",
+            "focus_offset_nm": "float",
+            "exposure_count": "integer",
+            "change_history": "array"
+        }
+    },
+    {
+        "tool_name": "develop_process_status",
+        "description": "현상(Develop) 공정의 진행 상황과 패턴 결과를 확인한다.",
+        "tags": ["develop", "현상", "패턴", "진행", "photo"],
+        "examples": [
+            "현상 공정 진행 상황 알려줘.",
+            "Develop 후 패턴 결과 보여줘.",
+            "현상 시간 변경 이력 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "status": "string",
+            "develop_time_sec": "integer",
+            "pattern_quality_grade": "string",
+            "ng_wafer_count": "integer"
+        }
+    },
+    {
+        "tool_name": "stepper_machine_status",
+        "description": "스테퍼(노광기)의 가동 상태와 처리량을 조회한다.",
+        "tags": ["stepper", "노광기", "설비", "가동", "photo"],
+        "examples": [
+            "스테퍼 가동 상태 알려줘.",
+            "노광기 처리량 현황 보여줘.",
+            "스테퍼 다운타임 이력 조회해줘.",
+            "Stepper별 wafer 처리 현황은?"
+        ],
+        "input_schema": {
+            "stepper_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "stepper_id": "string",
+            "status": "string",
+            "throughput_wph": "float",
+            "uptime_percent": "float",
+            "downtime_min": "float",
+            "wafer_processed": "integer"
+        }
+    },
+    {
+        "tool_name": "overlay_error_analysis",
+        "description": "포토 공정의 Overlay 오차를 분석한다.",
+        "tags": ["overlay", "오차", "정렬", "분석", "photo"],
+        "examples": [
+            "Overlay 오차 분석 결과 알려줘.",
+            "정렬 오차 X/Y 분포 보여줘.",
+            "Overlay error 상위 lot 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "layer_id": "string",
+            "top_n": "integer"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "overlay_x_nm": "float",
+            "overlay_y_nm": "float",
+            "max_error_nm": "float",
+            "top_error_lots": "array"
+        }
+    },
+    {
+        "tool_name": "critical_dimension_measurement",
+        "description": "포토 공정 후 임계치수(CD)를 측정하여 결과를 조회한다.",
+        "tags": ["CD", "임계치수", "critical dimension", "측정", "photo"],
+        "examples": [
+            "CD 측정 결과 보여줘.",
+            "임계치수 분포 조회해줘.",
+            "CD 스펙 벗어난 웨이퍼 알려줘.",
+            "오늘 CD 평균값 트렌드 알려줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "process_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_cd_nm": "float",
+            "cd_std_nm": "float",
+            "out_of_spec_count": "integer",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "reticle_inventory_status",
+        "description": "포토 공정에서 사용하는 레티클의 재고와 사용 이력을 조회한다.",
+        "tags": ["reticle", "레티클", "재고", "사용이력", "photo"],
+        "examples": [
+            "레티클 재고 현황 알려줘.",
+            "Reticle 사용 이력 보여줘.",
+            "특정 reticle 마지막 사용일 조회해줘."
+        ],
+        "input_schema": {
+            "reticle_id": "string"
+        },
+        "output_schema": {
+            "reticle_id": "string",
+            "stock_count": "integer",
+            "in_use_count": "integer",
+            "last_used_date": "date",
+            "usage_history": "array"
+        }
+    },
+    {
+        "tool_name": "photo_defect_inspection",
+        "description": "포토 공정 후 발생한 패턴 결함을 검사한다.",
+        "tags": ["defect", "패턴결함", "검사", "photo", "inspection"],
+        "examples": [
+            "포토 공정 결함 검사 결과 보여줘.",
+            "패턴 디펙트 카운트 알려줘.",
+            "Photo defect 상위 항목 조회해줘.",
+            "결함 종류별 분포가 어때?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "total_defect_count": "integer",
+            "defect_by_type": "object",
+            "top_defect_types": "array"
+        }
+    },
+    {
+        "tool_name": "rework_lot_query",
+        "description": "포토 공정에서 재작업(Rework)된 로트 정보를 조회한다.",
+        "tags": ["rework", "재작업", "로트", "photo", "lot"],
+        "examples": [
+            "Rework 로트 리스트 보여줘.",
+            "재작업된 웨이퍼 이력 알려줘.",
+            "Rework 사유별 통계 조회해줘."
+        ],
+        "input_schema": {
+            "start_date": "date",
+            "end_date": "date",
+            "reason_category": "string"
+        },
+        "output_schema": {
+            "rework_lot_count": "integer",
+            "rework_lots": "array",
+            "reason_distribution": "object",
+            "average_rework_count": "float"
+        }
+    },
+    {
+        "tool_name": "litho_process_capability_index",
+        "description": "리소그래피 공정의 공정능력지수(Cpk)를 조회한다.",
+        "tags": ["Cpk", "공정능력", "litho", "리소", "지수"],
+        "examples": [
+            "리소 공정 Cpk 값 알려줘.",
+            "Litho 공정능력지수 트렌드 보여줘.",
+            "Cpk 1.33 미달 항목 조회해줘.",
+            "최근 분기 공정능력 변화는?"
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "metric_id": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "metric_id": "string",
+            "cpk_value": "float",
+            "cp_value": "float",
+            "is_below_threshold": "boolean",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "etch_rate_query",
+        "description": "식각 공정의 식각 속도(Etch Rate)를 조회한다.",
+        "tags": ["etch", "식각", "rate", "속도", "etching"],
+        "examples": [
+            "식각 속도 조회해줘.",
+            "오늘 etch rate 데이터 보여줘.",
+            "Etch rate 트렌드 알려줘.",
+            "공정별 식각 속도 비교해줘."
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "chamber_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "chamber_id": "string",
+            "avg_etch_rate_nm_per_min": "float",
+            "etch_rate_std": "float",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "dry_etch_chamber_status",
+        "description": "건식 식각 챔버의 운영 상태를 조회한다.",
+        "tags": ["dry etch", "건식식각", "챔버", "상태", "etching"],
+        "examples": [
+            "건식 식각 챔버 상태 알려줘.",
+            "Dry etch 챔버 가동률 보여줘.",
+            "챔버별 식각 진행 현황 조회해줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "current_lot_id": "string",
+            "utilization_percent": "float",
+            "active_recipe": "string"
+        }
+    },
+    {
+        "tool_name": "wet_etch_bath_temperature",
+        "description": "습식 식각 배스의 온도와 농도를 모니터링한다.",
+        "tags": ["wet etch", "습식식각", "bath", "온도", "etching"],
+        "examples": [
+            "습식 식각 배스 온도 보여줘.",
+            "Wet etch 약품 농도 조회해줘.",
+            "배스 온도 이상 알람 이력 알려줘."
+        ],
+        "input_schema": {
+            "bath_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "bath_id": "string",
+            "current_temp_c": "float",
+            "concentration_percent": "float",
+            "temp_log": "array",
+            "alarm_history": "array"
+        }
+    },
+    {
+        "tool_name": "etch_uniformity_analysis",
+        "description": "식각 공정의 균일도를 분석한 결과를 조회한다.",
+        "tags": ["uniformity", "균일도", "식각", "분석", "etch"],
+        "examples": [
+            "식각 균일도 분석 결과 알려줘.",
+            "Etch uniformity 데이터 보여줘.",
+            "균일도 불량 웨이퍼 리스트 조회해줘.",
+            "Center-edge 식각 편차가 어때?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "uniformity_percent": "float",
+            "center_edge_deviation_percent": "float",
+            "ng_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "etch_endpoint_detection_log",
+        "description": "식각 공정의 엔드포인트 검출 로그를 조회한다.",
+        "tags": ["endpoint", "엔드포인트", "검출", "로그", "etch"],
+        "examples": [
+            "Etch endpoint 검출 로그 보여줘.",
+            "엔드포인트 도달 시간 분포 알려줘.",
+            "EPD 신호 이상 감지 이력 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "chamber_id": "string",
+            "epd_time_sec": "float",
+            "epd_signal_data": "array",
+            "anomaly_events": "array"
+        }
+    },
+    {
+        "tool_name": "plasma_etch_power_monitor",
+        "description": "플라즈마 식각 장비의 RF 파워를 모니터링한다.",
+        "tags": ["plasma", "RF", "파워", "etch", "플라즈마"],
+        "examples": [
+            "플라즈마 식각 RF 파워 모니터링 결과 알려줘.",
+            "RF power 변동 이력 보여줘.",
+            "Plasma etch 파워 이상 감지된 챔버는?",
+            "오늘 평균 RF power 값은?"
+        ],
+        "input_schema": {
+            "chamber_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "avg_rf_power_watt": "float",
+            "rf_power_log": "array",
+            "anomaly_chambers": "array",
+            "max_deviation": "float"
+        }
+    },
+    {
+        "tool_name": "etch_profile_inspection",
+        "description": "식각 후 단면 프로파일을 검사하여 사이드월 각도를 확인한다.",
+        "tags": ["profile", "프로파일", "사이드월", "etch", "inspection"],
+        "examples": [
+            "식각 프로파일 검사 결과 보여줘.",
+            "Sidewall angle 측정값 알려줘.",
+            "Etch profile 이상 패턴 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "sidewall_angle_deg": "float",
+            "trench_depth_nm": "float",
+            "profile_grade": "string",
+            "ng_pattern_count": "integer"
+        }
+    },
+    {
+        "tool_name": "etch_selectivity_data",
+        "description": "식각 공정의 선택비(Selectivity) 데이터를 조회한다.",
+        "tags": ["selectivity", "선택비", "etch", "식각", "data"],
+        "examples": [
+            "식각 선택비 데이터 알려줘.",
+            "Etch selectivity 트렌드 보여줘.",
+            "재료별 선택비 비교해줘.",
+            "선택비 저하 시점 조회해줘."
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "material_pair": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "material_pair": "string",
+            "selectivity_ratio": "float",
+            "trend_data": "array",
+            "degradation_events": "array"
+        }
+    },
+    {
+        "tool_name": "etch_chamber_cleaning_schedule",
+        "description": "식각 챔버의 청소 일정과 이력을 관리한다.",
+        "tags": ["chamber cleaning", "챔버청소", "일정", "etch", "PM"],
+        "examples": [
+            "식각 챔버 청소 일정 알려줘.",
+            "Chamber cleaning 이력 보여줘.",
+            "다음 PM 일정 조회해줘.",
+            "청소 후 챔버 회복 시간이 얼마야?"
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "next_pm_date": "date",
+            "last_cleaning_date": "date",
+            "cleaning_history": "array",
+            "recovery_time_hour": "float"
+        }
+    },
+    {
+        "tool_name": "etch_byproduct_analysis",
+        "description": "식각 공정에서 발생하는 부산물의 성분을 분석한다.",
+        "tags": ["byproduct", "부산물", "성분", "etch", "분석"],
+        "examples": [
+            "식각 부산물 분석 결과 보여줘.",
+            "Etch byproduct 성분 조회해줘.",
+            "부산물 발생량 트렌드 알려줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "byproduct_composition": "object",
+            "total_amount_g": "float",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "cvd_process_status_query",
+        "description": "화학기상증착(CVD) 공정의 현재 진행 상태를 조회한다.",
+        "tags": ["CVD", "증착", "deposition", "공정상태", "화학기상"],
+        "examples": [
+            "CVD 공정 진행 상황 알려줘.",
+            "현재 CVD 챔버 상태 보여줘.",
+            "CVD 진행 중인 로트 조회해줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "current_lot_id": "string",
+            "active_lots": "array",
+            "elapsed_time_min": "float"
+        }
+    },
+    {
+        "tool_name": "pvd_sputtering_status",
+        "description": "물리기상증착(PVD) 스퍼터링 공정의 진행 상태를 조회한다.",
+        "tags": ["PVD", "sputtering", "스퍼터링", "deposition", "물리기상"],
+        "examples": [
+            "PVD 스퍼터링 공정 상태 알려줘.",
+            "Sputter 챔버 가동 현황 보여줘.",
+            "PVD 진행 중인 웨이퍼 리스트 조회해줘.",
+            "스퍼터 타겟 사용량은?"
+        ],
+        "input_schema": {
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "wafer_list": "array",
+            "target_material": "string",
+            "target_usage_percent": "float",
+            "utilization_percent": "float"
+        }
+    },
+    {
+        "tool_name": "ald_layer_thickness_query",
+        "description": "원자층증착(ALD) 공정으로 형성된 박막의 두께를 조회한다.",
+        "tags": ["ALD", "원자층증착", "두께", "박막", "deposition"],
+        "examples": [
+            "ALD 박막 두께 측정 결과 보여줘.",
+            "원자층증착 두께 분포 알려줘.",
+            "ALD 사이클별 두께 데이터 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "process_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "avg_thickness_angstrom": "float",
+            "cycle_count": "integer",
+            "thickness_per_cycle": "float",
+            "uniformity_percent": "float"
+        }
+    },
+    {
+        "tool_name": "deposition_rate_monitoring",
+        "description": "증착 공정의 증착 속도(Deposition Rate)를 모니터링한다.",
+        "tags": ["deposition rate", "증착속도", "모니터링", "deposition", "rate"],
+        "examples": [
+            "증착 속도 모니터링 데이터 알려줘.",
+            "Deposition rate 트렌드 보여줘.",
+            "증착 속도 이상 감지된 시점 조회해줘.",
+            "챔버별 증착 속도 비교해줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "avg_dep_rate_nm_per_min": "float",
+            "rate_trend": "array",
+            "anomaly_events": "array",
+            "chamber_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "thin_film_stress_measurement",
+        "description": "박막의 응력(Stress) 측정 결과를 조회한다.",
+        "tags": ["stress", "응력", "박막", "측정", "film"],
+        "examples": [
+            "박막 응력 측정 결과 보여줘.",
+            "Film stress 데이터 알려줘.",
+            "응력 스펙 벗어난 웨이퍼 조회해줘.",
+            "Tensile/Compressive stress 비율은?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "stress_mpa": "float",
+            "stress_type": "string",
+            "out_of_spec_wafer_ids": "array",
+            "tensile_compressive_ratio": "float"
+        }
+    },
+    {
+        "tool_name": "epi_growth_quality_check",
+        "description": "에피택셜 성장 공정의 결정 품질을 검사한다.",
+        "tags": ["epi", "에피", "성장", "결정품질", "epitaxy"],
+        "examples": [
+            "에피 성장 품질 검사 결과 알려줘.",
+            "Epi 결정 품질 데이터 보여줘.",
+            "에피택셜 결함 분포 조회해줘.",
+            "Epi layer 두께 균일도는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "crystal_quality_grade": "string",
+            "defect_density_per_cm2": "float",
+            "epi_thickness_um": "float",
+            "uniformity_percent": "float"
+        }
+    },
+    {
+        "tool_name": "deposition_chamber_pressure_log",
+        "description": "증착 챔버의 압력 로그를 조회한다.",
+        "tags": ["pressure", "압력", "챔버", "deposition", "log"],
+        "examples": [
+            "증착 챔버 압력 로그 보여줘.",
+            "Chamber pressure 변동 이력 알려줘.",
+            "압력 이상 알람 발생 시점 조회해줘."
+        ],
+        "input_schema": {
+            "chamber_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "pressure_log": "array",
+            "avg_pressure_torr": "float",
+            "alarm_events": "array"
+        }
+    },
+    {
+        "tool_name": "film_refractive_index_query",
+        "description": "증착된 박막의 굴절률 측정값을 조회한다.",
+        "tags": ["refractive index", "굴절률", "박막", "측정", "film"],
+        "examples": [
+            "박막 굴절률 측정값 알려줘.",
+            "Refractive index 분포 보여줘.",
+            "굴절률 이상 웨이퍼 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "refractive_index": "float",
+            "wavelength_nm": "float",
+            "ng_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "deposition_particle_count",
+        "description": "증착 공정 후 웨이퍼 표면 파티클 수를 카운트한다.",
+        "tags": ["particle", "파티클", "carbon", "deposition", "검사"],
+        "examples": [
+            "증착 후 파티클 카운트 결과 보여줘.",
+            "Particle 발생량 트렌드 알려줘.",
+            "파티클 기준 초과 웨이퍼 조회해줘.",
+            "챔버별 파티클 발생 비교해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "chamber_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "chamber_id": "string",
+            "particle_count": "integer",
+            "particle_size_avg_nm": "float",
+            "out_of_spec_wafer_ids": "array",
+            "chamber_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "ion_implant_dose_record",
+        "description": "이온주입 공정에서 적용된 도즈량과 에너지 기록을 조회한다.",
+        "tags": ["implant", "이온주입", "dose", "도즈", "에너지"],
+        "examples": [
+            "이온주입 도즈량 기록 보여줘.",
+            "Implant dose/energy 데이터 알려줘.",
+            "이온주입 조건 변경 이력 조회해줘.",
+            "Dose 편차가 큰 로트는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "implanter_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "implanter_id": "string",
+            "dose_atoms_per_cm2": "float",
+            "energy_kev": "float",
+            "dose_deviation_percent": "float",
+            "change_history": "array"
+        }
+    },
+    {
+        "tool_name": "implant_species_check",
+        "description": "이온주입 공정에서 사용되는 도펀트 종류를 확인한다.",
+        "tags": ["dopant", "도펀트", "species", "implant", "이온"],
+        "examples": [
+            "이온주입 도펀트 종류 알려줘.",
+            "현재 사용 중인 implant species 조회해줘.",
+            "B/P/As 도펀트별 사용 이력 보여줘."
+        ],
+        "input_schema": {
+            "implanter_id": "string",
+            "species": "string"
+        },
+        "output_schema": {
+            "implanter_id": "string",
+            "current_species": "string",
+            "usage_history": "array",
+            "species_distribution": "object"
+        }
+    },
+    {
+        "tool_name": "implant_uniformity_analysis",
+        "description": "이온주입의 도즈 균일도를 분석한다.",
+        "tags": ["uniformity", "균일도", "implant", "이온주입", "분석"],
+        "examples": [
+            "이온주입 균일도 분석 결과 보여줘.",
+            "Implant uniformity 데이터 알려줘.",
+            "균일도 불량 웨이퍼 리스트 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "dose_uniformity_percent": "float",
+            "ng_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "implanter_beam_current_log",
+        "description": "이온주입기의 빔 전류 로그를 조회한다.",
+        "tags": ["beam current", "빔전류", "implanter", "로그", "implant"],
+        "examples": [
+            "이온주입기 빔 전류 로그 알려줘.",
+            "Beam current 변동 이력 보여줘.",
+            "빔 전류 이상 발생 시점 조회해줘.",
+            "장비별 평균 빔 전류 비교해줘."
+        ],
+        "input_schema": {
+            "implanter_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "implanter_id": "string",
+            "avg_beam_current_ma": "float",
+            "beam_current_log": "array",
+            "anomaly_events": "array",
+            "implanter_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "annealing_temperature_profile",
+        "description": "이온주입 후 열처리(Annealing) 공정의 온도 프로파일을 조회한다.",
+        "tags": ["annealing", "열처리", "온도", "프로파일", "implant"],
+        "examples": [
+            "Annealing 온도 프로파일 보여줘.",
+            "열처리 공정 램프 업/다운 데이터 알려줘.",
+            "Anneal 온도 이상 감지된 로트 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "anneal_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "peak_temp_c": "float",
+            "ramp_up_rate_c_per_sec": "float",
+            "ramp_down_rate_c_per_sec": "float",
+            "temp_profile": "array",
+            "anomaly_lots": "array"
+        }
+    },
+    {
+        "tool_name": "junction_depth_measurement",
+        "description": "이온주입 후 형성된 접합 깊이(Junction Depth)를 측정한다.",
+        "tags": ["junction", "접합깊이", "측정", "implant", "Xj"],
+        "examples": [
+            "접합 깊이 측정 결과 알려줘.",
+            "Junction depth 분포 보여줘.",
+            "Xj 값 스펙 벗어난 웨이퍼 조회해줘.",
+            "이온주입 조건별 Xj 비교해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "xj_nm": "float",
+            "xj_std_nm": "float",
+            "out_of_spec_wafer_ids": "array",
+            "condition_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "sheet_resistance_query",
+        "description": "이온주입 후 면저항(Sheet Resistance) 측정값을 조회한다.",
+        "tags": ["sheet resistance", "면저항", "측정", "implant", "Rs"],
+        "examples": [
+            "면저항 측정 결과 보여줘.",
+            "Sheet resistance 분포 알려줘.",
+            "Rs 값 이상 웨이퍼 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "rs_ohm_per_sq": "float",
+            "rs_uniformity_percent": "float",
+            "ng_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "metallization_layer_thickness",
+        "description": "금속배선층의 두께를 측정하여 결과를 조회한다.",
+        "tags": ["metallization", "금속배선", "두께", "측정", "metal"],
+        "examples": [
+            "금속배선 두께 측정 결과 보여줘.",
+            "Metal layer thickness 분포 알려줘.",
+            "두께 스펙 벗어난 웨이퍼 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "layer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "layer_id": "string",
+            "avg_thickness_nm": "float",
+            "thickness_std_nm": "float",
+            "out_of_spec_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "copper_electroplating_status",
+        "description": "구리 전기도금 공정의 진행 상태를 조회한다.",
+        "tags": ["copper", "구리", "도금", "electroplating", "metal"],
+        "examples": [
+            "구리 도금 공정 진행 상황 알려줘.",
+            "Copper electroplating 챔버 상태 보여줘.",
+            "도금조 상태와 농도 조회해줘.",
+            "Cu 도금 두께 분포는?"
+        ],
+        "input_schema": {
+            "chamber_id": "string",
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "chamber_id": "string",
+            "status": "string",
+            "bath_concentration_g_per_l": "float",
+            "current_density_ma_per_cm2": "float",
+            "avg_cu_thickness_nm": "float"
+        }
+    },
+    {
+        "tool_name": "metal_cmp_status",
+        "description": "금속 CMP(화학기계연마) 공정의 진행 상태를 조회한다.",
+        "tags": ["CMP", "연마", "metal", "금속", "polishing"],
+        "examples": [
+            "금속 CMP 공정 상태 알려줘.",
+            "Metal CMP 진행 중인 로트 보여줘.",
+            "CMP 후 두께 데이터 조회해줘."
+        ],
+        "input_schema": {
+            "tool_id": "string"
+        },
+        "output_schema": {
+            "tool_id": "string",
+            "status": "string",
+            "active_lots": "array",
+            "post_cmp_thickness_nm": "float",
+            "removal_rate_nm_per_min": "float"
+        }
+    },
+    {
+        "tool_name": "barrier_metal_deposition",
+        "description": "배리어 메탈 증착 공정의 결과를 조회한다.",
+        "tags": ["barrier", "배리어", "metal", "증착", "deposition"],
+        "examples": [
+            "배리어 메탈 증착 결과 보여줘.",
+            "Barrier metal 두께 알려줘.",
+            "TiN/TaN barrier 형성 상태 조회해줘.",
+            "Barrier 균일도 분석해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "barrier_material": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "barrier_material": "string",
+            "thickness_nm": "float",
+            "uniformity_percent": "float",
+            "step_coverage_percent": "float"
+        }
+    },
+    {
+        "tool_name": "interconnect_resistance_test",
+        "description": "금속배선의 저항을 측정하여 전기적 특성을 평가한다.",
+        "tags": ["resistance", "저항", "interconnect", "배선", "test"],
+        "examples": [
+            "금속배선 저항 측정 결과 알려줘.",
+            "Interconnect resistance 분포 보여줘.",
+            "저항 스펙 벗어난 웨이퍼 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "avg_resistance_ohm": "float",
+            "resistance_distribution": "object",
+            "out_of_spec_wafer_ids": "array"
+        }
+    },
+    {
+        "tool_name": "via_hole_filling_inspection",
+        "description": "비아홀 충전(Filling) 공정의 결과를 검사한다.",
+        "tags": ["via", "비아", "filling", "충전", "inspection"],
+        "examples": [
+            "비아홀 충전 검사 결과 보여줘.",
+            "Via filling 보이드 발생 여부 알려줘.",
+            "Via hole 단면 검사 결과 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "void_count": "integer",
+            "fill_rate_percent": "float",
+            "ng_via_ids": "array"
+        }
+    },
+    {
+        "tool_name": "metal_line_continuity_check",
+        "description": "금속배선의 단선 여부를 점검한다.",
+        "tags": ["continuity", "단선", "metal line", "배선", "check"],
+        "examples": [
+            "금속배선 단선 점검 결과 알려줘.",
+            "Metal line continuity 테스트 보여줘.",
+            "오픈 결함 발생 위치 조회해줘.",
+            "단선 발생률 트렌드는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "open_defect_count": "integer",
+            "defect_locations": "array",
+            "open_rate_percent": "float",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "metal_grain_size_analysis",
+        "description": "금속 박막의 결정립 크기를 분석한다.",
+        "tags": ["grain size", "결정립", "metal", "박막", "분석"],
+        "examples": [
+            "금속 결정립 크기 분석 결과 보여줘.",
+            "Grain size 분포 알려줘.",
+            "Cu grain 크기 트렌드 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "metal_type": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "metal_type": "string",
+            "avg_grain_size_nm": "float",
+            "grain_size_distribution": "object",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "eds_wafer_test_result",
+        "description": "EDS(Electrical Die Sorting) 웨이퍼 테스트 결과를 조회한다.",
+        "tags": ["EDS", "test", "웨이퍼테스트", "전기검사", "die sorting"],
+        "examples": [
+            "EDS 웨이퍼 테스트 결과 보여줘.",
+            "전기검사 합격률 알려줘.",
+            "EDS 결과 BIN별 분포 조회해줘.",
+            "Die sorting 통계는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "pass_rate": "float",
+            "good_die_count": "integer",
+            "fail_die_count": "integer",
+            "bin_distribution": "object"
+        }
+    },
+    {
+        "tool_name": "eds_bin_map_visualization",
+        "description": "EDS 테스트의 BIN 맵을 시각화하여 보여준다.",
+        "tags": ["bin map", "BIN", "EDS", "맵", "시각화"],
+        "examples": [
+            "EDS BIN 맵 보여줘.",
+            "웨이퍼 BIN 분포 시각화해줘.",
+            "Bin map 패턴 분석해줘.",
+            "특정 웨이퍼의 BIN 위치 알려줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "bin_map": "array",
+            "bin_pattern_type": "string",
+            "image_url": "string"
+        }
+    },
+    {
+        "tool_name": "probe_card_status",
+        "description": "프로브 카드의 상태와 사용 이력을 조회한다.",
+        "tags": ["probe card", "프로브카드", "상태", "이력", "test"],
+        "examples": [
+            "프로브 카드 상태 알려줘.",
+            "Probe card 사용 횟수 보여줘.",
+            "프로브 카드 PM 일정 조회해줘."
+        ],
+        "input_schema": {
+            "probe_card_id": "string"
+        },
+        "output_schema": {
+            "probe_card_id": "string",
+            "status": "string",
+            "usage_count": "integer",
+            "max_usage_count": "integer",
+            "next_pm_date": "date"
+        }
+    },
+    {
+        "tool_name": "wafer_test_yield_trend",
+        "description": "웨이퍼 테스트 수율의 시간별 트렌드를 분석한다.",
+        "tags": ["test yield", "테스트수율", "트렌드", "EDS", "wafer"],
+        "examples": [
+            "웨이퍼 테스트 수율 트렌드 보여줘.",
+            "EDS 수율 일별 추이 알려줘.",
+            "테스트 수율 하락 원인 분석해줘.",
+            "최근 1주일 yield 트렌드는?"
+        ],
+        "input_schema": {
+            "product_id": "string",
+            "start_date": "date",
+            "end_date": "date",
+            "granularity": "string"
+        },
+        "output_schema": {
+            "product_id": "string",
+            "yield_trend": "array",
+            "current_yield": "float",
+            "previous_yield": "float",
+            "drop_root_causes": "array"
+        }
+    },
+    {
+        "tool_name": "fail_bit_map_analysis",
+        "description": "메모리 칩의 페일 비트 맵을 분석한다.",
+        "tags": ["fail bit", "FBM", "메모리", "페일", "분석"],
+        "examples": [
+            "Fail bit map 분석 결과 보여줘.",
+            "FBM 패턴별 분포 알려줘.",
+            "페일 비트 위치 시각화해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "fail_bit_count": "integer",
+            "fail_pattern_type": "string",
+            "fail_locations": "array",
+            "fbm_image_url": "string"
+        }
+    },
+    {
+        "tool_name": "parametric_test_data",
+        "description": "파라메트릭 테스트(PT) 데이터를 조회한다.",
+        "tags": ["parametric", "PT", "파라메트릭", "테스트", "data"],
+        "examples": [
+            "파라메트릭 테스트 데이터 알려줘.",
+            "PT 측정값 분포 보여줘.",
+            "파라메트릭 항목별 결과 조회해줘.",
+            "Vt, Idsat 측정값은?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "parameter_name": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "parameter_name": "string",
+            "measurements": "object",
+            "vt_volt": "float",
+            "idsat_ma": "float",
+            "out_of_spec_count": "integer"
+        }
+    },
+    {
+        "tool_name": "test_program_version_check",
+        "description": "테스트 프로그램의 버전과 적용 이력을 조회한다.",
+        "tags": ["test program", "테스트프로그램", "버전", "이력", "test"],
+        "examples": [
+            "테스트 프로그램 버전 확인해줘.",
+            "Test program 변경 이력 보여줘.",
+            "현재 적용 중인 TP 버전 조회해줘."
+        ],
+        "input_schema": {
+            "product_id": "string",
+            "tester_id": "string"
+        },
+        "output_schema": {
+            "product_id": "string",
+            "tester_id": "string",
+            "current_version": "string",
+            "version_history": "array",
+            "last_updated": "datetime"
+        }
+    },
+    {
+        "tool_name": "wafer_repair_status",
+        "description": "리던던시를 활용한 웨이퍼 리페어 진행 상태를 조회한다.",
+        "tags": ["repair", "리페어", "redundancy", "wafer", "리던던시"],
+        "examples": [
+            "웨이퍼 리페어 진행 상태 알려줘.",
+            "Repair 적용 후 수율 변화 보여줘.",
+            "리던던시 사용 현황 조회해줘.",
+            "Repair 효과 분석해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "repair_status": "string",
+            "redundancy_usage_percent": "float",
+            "yield_before_repair": "float",
+            "yield_after_repair": "float"
+        }
+    },
+    {
+        "tool_name": "burn_in_test_status",
+        "description": "번인 테스트의 진행 상태와 결과를 조회한다.",
+        "tags": ["burn-in", "번인", "테스트", "test", "신뢰성"],
+        "examples": [
+            "번인 테스트 진행 상태 알려줘.",
+            "Burn-in 결과 보여줘.",
+            "번인 후 페일 칩 비율 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "status": "string",
+            "burn_in_hour": "float",
+            "fail_chip_rate": "float",
+            "test_temp_c": "float"
+        }
+    },
+    {
+        "tool_name": "tester_machine_utilization",
+        "description": "테스터 장비의 가동률과 활용 현황을 조회한다.",
+        "tags": ["tester", "테스터", "가동률", "활용", "장비"],
+        "examples": [
+            "테스터 장비 가동률 알려줘.",
+            "Tester utilization 현황 보여줘.",
+            "테스터별 처리량 비교해줘.",
+            "장비 다운타임 이력은?"
+        ],
+        "input_schema": {
+            "tester_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "tester_id": "string",
+            "utilization_percent": "float",
+            "throughput_per_hour": "float",
+            "downtime_min": "float",
+            "tester_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "package_assembly_status",
+        "description": "패키지 어셈블리 공정의 진행 상태를 조회한다.",
+        "tags": ["package", "패키지", "assembly", "어셈블리", "조립"],
+        "examples": [
+            "패키지 어셈블리 공정 상태 알려줘.",
+            "Package assembly 진행 중인 로트 보여줘.",
+            "조립 라인 처리량 조회해줘."
+        ],
+        "input_schema": {
+            "line_id": "string"
+        },
+        "output_schema": {
+            "line_id": "string",
+            "active_lots": "array",
+            "wip_count": "integer",
+            "throughput_per_hour": "float",
+            "current_step": "string"
+        }
+    },
+    {
+        "tool_name": "die_attach_quality_check",
+        "description": "다이 어태치 공정의 품질을 검사한다.",
+        "tags": ["die attach", "다이어태치", "품질", "검사", "package"],
+        "examples": [
+            "다이 어태치 품질 검사 결과 보여줘.",
+            "Die attach 보이드 발생률 알려줘.",
+            "Die bond 강도 측정값 조회해줘.",
+            "어태치 불량 사유별 분포는?"
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "void_rate_percent": "float",
+            "bond_strength_kgf": "float",
+            "defect_count": "integer",
+            "defect_reason_distribution": "object"
+        }
+    },
+    {
+        "tool_name": "wire_bonding_inspection",
+        "description": "와이어 본딩 공정의 검사 결과를 조회한다.",
+        "tags": ["wire bonding", "와이어본딩", "검사", "package", "본딩"],
+        "examples": [
+            "와이어 본딩 검사 결과 알려줘.",
+            "Wire bonding 풀 강도 보여줘.",
+            "본딩 불량률 트렌드 조회해줘.",
+            "Wire bond 룹 형상 검사 결과는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "pull_strength_gf": "float",
+            "ball_shear_gf": "float",
+            "defect_rate_percent": "float",
+            "loop_shape_grade": "string",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "molding_compound_status",
+        "description": "몰딩 컴파운드 사용 상태와 재고를 관리한다.",
+        "tags": ["molding", "몰딩", "컴파운드", "재고", "package"],
+        "examples": [
+            "몰딩 컴파운드 재고 알려줘.",
+            "Molding compound 사용 이력 보여줘.",
+            "몰딩 재료 lot 정보 조회해줘."
+        ],
+        "input_schema": {
+            "compound_id": "string"
+        },
+        "output_schema": {
+            "compound_id": "string",
+            "stock_kg": "float",
+            "usage_history": "array",
+            "material_lot_info": "object",
+            "expire_date": "date"
+        }
+    },
+    {
+        "tool_name": "package_marking_inspection",
+        "description": "패키지 마킹의 인쇄 품질을 검사한다.",
+        "tags": ["marking", "마킹", "인쇄", "검사", "package"],
+        "examples": [
+            "패키지 마킹 검사 결과 보여줘.",
+            "Marking 품질 불량 건수 알려줘.",
+            "Laser marking 선명도 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "defect_count": "integer",
+            "marking_clarity_score": "float",
+            "ng_unit_ids": "array"
+        }
+    },
+    {
+        "tool_name": "solder_ball_attach_status",
+        "description": "솔더볼 부착 공정의 진행 상황을 조회한다.",
+        "tags": ["solder ball", "솔더볼", "부착", "package", "BGA"],
+        "examples": [
+            "솔더볼 부착 공정 상태 알려줘.",
+            "Solder ball attach 진행 현황 보여줘.",
+            "BGA 볼 부착 검사 결과 조회해줘.",
+            "솔더볼 누락 검출 결과는?"
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "status": "string",
+            "missing_ball_count": "integer",
+            "misaligned_ball_count": "integer",
+            "ball_attach_pass_rate": "float"
+        }
+    },
+    {
+        "tool_name": "package_final_test_result",
+        "description": "패키지 최종 테스트(Final Test) 결과를 조회한다.",
+        "tags": ["final test", "최종검사", "package", "FT", "test"],
+        "examples": [
+            "패키지 최종 테스트 결과 보여줘.",
+            "Final test 합격률 알려줘.",
+            "FT BIN별 분포 조회해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "pass_rate": "float",
+            "total_tested": "integer",
+            "fail_count": "integer",
+            "bin_distribution": "object"
+        }
+    },
+    {
+        "tool_name": "package_reliability_test",
+        "description": "패키지의 신뢰성 시험 결과를 조회한다.",
+        "tags": ["reliability", "신뢰성", "시험", "package", "test"],
+        "examples": [
+            "패키지 신뢰성 시험 결과 알려줘.",
+            "Reliability test 항목별 결과 보여줘.",
+            "TCT, HAST 시험 결과 조회해줘.",
+            "신뢰성 페일 사례 분석해줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "test_type": "string"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "test_type": "string",
+            "pass_count": "integer",
+            "fail_count": "integer",
+            "fail_mode_analysis": "array",
+            "test_duration_hour": "float"
+        }
+    },
+    {
+        "tool_name": "shipment_lot_tracking",
+        "description": "출하 예정 로트의 추적 정보를 조회한다.",
+        "tags": ["shipment", "출하", "로트", "추적", "tracking"],
+        "examples": [
+            "출하 예정 로트 추적 정보 보여줘.",
+            "Shipment lot 상태 알려줘.",
+            "오늘 출하될 제품 리스트 조회해줘.",
+            "특정 로트 출하 이력 보여줘."
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "ship_date": "date"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "shipment_status": "string",
+            "scheduled_ship_date": "date",
+            "destination": "string",
+            "shipment_history": "array"
+        }
+    },
+    {
+        "tool_name": "process_alarm_history",
+        "description": "공정 진행 중 발생한 알람 이력을 조회한다.",
+        "tags": ["alarm", "알람", "이력", "공정", "history"],
+        "examples": [
+            "공정 알람 이력 알려줘.",
+            "Process alarm 발생 빈도 보여줘.",
+            "최근 24시간 알람 리스트 조회해줘.",
+            "심각도별 알람 분포는?"
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime",
+            "severity": "string"
+        },
+        "output_schema": {
+            "alarm_count": "integer",
+            "alarms": "array",
+            "severity_distribution": "object",
+            "frequency_per_hour": "float"
+        }
+    },
+    {
+        "tool_name": "equipment_pm_schedule",
+        "description": "설비의 정기 점검(PM) 일정을 조회한다.",
+        "tags": ["PM", "정기점검", "설비", "일정", "equipment"],
+        "examples": [
+            "설비 PM 일정 알려줘.",
+            "Equipment 정기 점검 스케줄 보여줘.",
+            "다음 주 PM 예정 설비 조회해줘.",
+            "PM 지연된 설비는?"
+        ],
+        "input_schema": {
+            "equipment_id": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "equipment_id": "string",
+            "next_pm_date": "date",
+            "pm_schedule": "array",
+            "overdue_equipments": "array"
+        }
+    },
+    {
+        "tool_name": "spc_chart_query",
+        "description": "통계적 공정관리(SPC) 차트를 조회한다.",
+        "tags": ["SPC", "통계공정관리", "차트", "관리도", "quality"],
+        "examples": [
+            "SPC 관리도 보여줘.",
+            "공정 SPC 차트 조회해줘.",
+            "X-bar R 차트 알려줘.",
+            "OOC 발생 항목은?"
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "metric_id": "string",
+            "chart_type": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "metric_id": "string",
+            "chart_data": "array",
+            "ucl": "float",
+            "lcl": "float",
+            "ooc_events": "array"
+        }
+    },
+    {
+        "tool_name": "wip_status_query",
+        "description": "재공품(WIP) 현황과 위치 정보를 조회한다.",
+        "tags": ["WIP", "재공품", "현황", "위치", "production"],
+        "examples": [
+            "WIP 현황 알려줘.",
+            "재공품 위치 보여줘.",
+            "공정별 WIP 분포 조회해줘.",
+            "Stock-out 위험 로트 알려줘."
+        ],
+        "input_schema": {
+            "line_id": "string",
+            "process_id": "string"
+        },
+        "output_schema": {
+            "total_wip_count": "integer",
+            "wip_by_process": "object",
+            "wip_locations": "array",
+            "stockout_risk_lots": "array"
+        }
+    },
+    {
+        "tool_name": "fab_throughput_dashboard",
+        "description": "팹의 시간당 처리량(Throughput)을 대시보드로 보여준다.",
+        "tags": ["throughput", "처리량", "팹", "대시보드", "production"],
+        "examples": [
+            "팹 처리량 대시보드 보여줘.",
+            "시간당 wafer out 알려줘.",
+            "Throughput 트렌드 조회해줘.",
+            "라인별 처리량 비교해줘."
+        ],
+        "input_schema": {
+            "fab_id": "string",
+            "line_id": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "fab_id": "string",
+            "wafer_out_per_hour": "float",
+            "throughput_trend": "array",
+            "line_comparison": "object"
+        }
+    },
+    {
+        "tool_name": "cycle_time_analysis",
+        "description": "제품의 사이클 타임(Cycle Time)을 분석한다.",
+        "tags": ["cycle time", "사이클타임", "분석", "production", "TAT"],
+        "examples": [
+            "사이클 타임 분석 결과 보여줘.",
+            "Cycle time 트렌드 알려줘.",
+            "TAT 길어진 공정 조회해줘.",
+            "제품별 평균 cycle time은?"
+        ],
+        "input_schema": {
+            "product_id": "string",
+            "process_id": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "product_id": "string",
+            "avg_cycle_time_hour": "float",
+            "tat_trend": "array",
+            "bottleneck_processes": "array",
+            "cycle_time_by_product": "object"
+        }
+    },
+    {
+        "tool_name": "equipment_oee_query",
+        "description": "설비종합효율(OEE) 지표를 조회한다.",
+        "tags": ["OEE", "설비효율", "지표", "equipment", "performance"],
+        "examples": [
+            "설비 OEE 지표 알려줘.",
+            "Equipment OEE 트렌드 보여줘.",
+            "OEE 저하 설비 조회해줘.",
+            "Availability/Performance/Quality 분해해줘."
+        ],
+        "input_schema": {
+            "equipment_id": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "equipment_id": "string",
+            "oee_percent": "float",
+            "availability_percent": "float",
+            "performance_percent": "float",
+            "quality_percent": "float",
+            "low_oee_equipments": "array"
+        }
+    },
+    {
+        "tool_name": "yield_loss_analysis",
+        "description": "수율 손실(Yield Loss)의 원인을 분석한다.",
+        "tags": ["yield loss", "수율손실", "원인분석", "yield", "quality"],
+        "examples": [
+            "수율 손실 원인 분석해줘.",
+            "Yield loss 카테고리별 비중 알려줘.",
+            "수율 하락 주요 원인 조회해줘.",
+            "수율 손실 최소화 인사이트 알려줘."
+        ],
+        "input_schema": {
+            "product_id": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "product_id": "string",
+            "total_yield_loss_percent": "float",
+            "loss_by_category": "object",
+            "top_root_causes": "array",
+            "improvement_insights": "array"
+        }
+    },
+    {
+        "tool_name": "defect_pareto_chart",
+        "description": "결함 종류별 발생 빈도를 파레토 차트로 보여준다.",
+        "tags": ["defect", "파레토", "결함", "차트", "quality"],
+        "examples": [
+            "결함 파레토 차트 보여줘.",
+            "Defect Pareto 분석해줘.",
+            "주요 결함 Top 5 알려줘.",
+            "결함 종류별 비중 시각화해줘."
+        ],
+        "input_schema": {
+            "process_id": "string",
+            "start_date": "date",
+            "end_date": "date",
+            "top_n": "integer"
+        },
+        "output_schema": {
+            "process_id": "string",
+            "top_defects": "array",
+            "defect_distribution": "object",
+            "cumulative_percent": "array"
+        }
+    },
+    {
+        "tool_name": "quality_audit_report",
+        "description": "품질 감사 리포트와 개선 항목을 조회한다.",
+        "tags": ["audit", "품질감사", "리포트", "개선", "quality"],
+        "examples": [
+            "품질 감사 리포트 알려줘.",
+            "Audit 결과 보여줘.",
+            "개선 필요 항목 조회해줘.",
+            "최근 audit 지적사항은?"
+        ],
+        "input_schema": {
+            "audit_id": "string",
+            "audit_date": "date"
+        },
+        "output_schema": {
+            "audit_id": "string",
+            "audit_date": "date",
+            "audit_score": "float",
+            "findings": "array",
+            "improvement_items": "array",
+            "action_status": "string"
+        }
+    },
+    {
+        "tool_name": "process_change_management",
+        "description": "공정 변경 요청(ECN/PCN)의 진행 상태를 관리한다.",
+        "tags": ["ECN", "PCN", "공정변경", "관리", "change"],
+        "examples": [
+            "공정 변경 요청 진행 상황 알려줘.",
+            "ECN 처리 현황 보여줘.",
+            "PCN 승인 대기 항목 조회해줘.",
+            "변경관리 이력 검색해줘."
+        ],
+        "input_schema": {
+            "change_id": "string",
+            "status": "string",
+            "start_date": "date",
+            "end_date": "date"
+        },
+        "output_schema": {
+            "change_id": "string",
+            "change_type": "string",
+            "status": "string",
+            "approval_status": "string",
+            "history": "array",
+            "pending_count": "integer"
+        }
+    },
+    {
+        "tool_name": "raw_material_inventory",
+        "description": "원자재 및 부자재의 재고 현황을 조회한다.",
+        "tags": ["material", "원자재", "재고", "inventory", "MRP"],
+        "examples": [
+            "원자재 재고 현황 알려줘.",
+            "Material inventory 보여줘.",
+            "재고 부족 자재 조회해줘.",
+            "재고 회전율 트렌드는?"
+        ],
+        "input_schema": {
+            "material_id": "string",
+            "warehouse_id": "string"
+        },
+        "output_schema": {
+            "material_id": "string",
+            "stock_quantity": "float",
+            "stock_unit": "string",
+            "low_stock_materials": "array",
+            "turnover_rate": "float",
+            "turnover_trend": "array"
+        }
+    },
+    {
+        "tool_name": "chemical_consumption_tracking",
+        "description": "공정용 화학물질의 소비량을 추적한다.",
+        "tags": ["chemical", "화학물질", "소비량", "추적", "tracking"],
+        "examples": [
+            "화학물질 소비량 트래킹 결과 보여줘.",
+            "Chemical 사용량 트렌드 알려줘.",
+            "약품별 월 소비량 조회해줘.",
+            "소비량 급증한 화학물질은?"
+        ],
+        "input_schema": {
+            "chemical_id": "string",
+            "process_id": "string",
+            "period": "string"
+        },
+        "output_schema": {
+            "chemical_id": "string",
+            "monthly_consumption_l": "float",
+            "consumption_trend": "array",
+            "spike_alerts": "array"
+        }
+    },
+    {
+        "tool_name": "cleanroom_particle_monitoring",
+        "description": "클린룸의 공기 중 파티클 농도를 모니터링한다.",
+        "tags": ["cleanroom", "클린룸", "파티클", "모니터링", "FFU"],
+        "examples": [
+            "클린룸 파티클 농도 알려줘.",
+            "Cleanroom particle 트렌드 보여줘.",
+            "Class 1 기준 초과 구역 조회해줘.",
+            "FFU별 파티클 데이터는?"
+        ],
+        "input_schema": {
+            "zone_id": "string",
+            "ffu_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "zone_id": "string",
+            "particle_count_per_m3": "float",
+            "iso_class": "string",
+            "out_of_spec_zones": "array",
+            "ffu_data": "object"
+        }
+    },
+    {
+        "tool_name": "facility_utility_status",
+        "description": "팹의 유틸리티(전기, DI water, 가스 등) 공급 상태를 조회한다.",
+        "tags": ["utility", "유틸리티", "공급", "전기", "facility"],
+        "examples": [
+            "유틸리티 공급 상태 보여줘.",
+            "DI water 사용량 알려줘.",
+            "가스 공급 압력 조회해줘.",
+            "전력 사용량 트렌드는?"
+        ],
+        "input_schema": {
+            "utility_type": "string",
+            "date": "date"
+        },
+        "output_schema": {
+            "utility_type": "string",
+            "supply_status": "string",
+            "power_usage_kwh": "float",
+            "di_water_usage_m3": "float",
+            "gas_pressure_bar": "float",
+            "trend_data": "array"
+        }
+    },
+    {
+        "tool_name": "operator_skill_matrix",
+        "description": "오퍼레이터의 스킬 매트릭스와 자격 인증 정보를 조회한다.",
+        "tags": ["operator", "오퍼레이터", "스킬", "자격", "인증"],
+        "examples": [
+            "오퍼레이터 스킬 매트릭스 보여줘.",
+            "Operator 자격 인증 현황 알려줘.",
+            "특정 공정 운전 가능자 조회해줘.",
+            "교육 필요 인원은?"
+        ],
+        "input_schema": {
+            "operator_id": "string",
+            "process_id": "string"
+        },
+        "output_schema": {
+            "operator_id": "string",
+            "skill_levels": "object",
+            "certifications": "array",
+            "qualified_processes": "array",
+            "training_required_count": "integer"
+        }
+    },
+    {
+        "tool_name": "fault_detection_classification",
+        "description": "FDC(Fault Detection and Classification) 시스템의 이상 감지 결과를 조회한다.",
+        "tags": ["FDC", "이상감지", "분류", "fault", "AI"],
+        "examples": [
+            "FDC 이상 감지 결과 알려줘.",
+            "Fault detection 알람 보여줘.",
+            "FDC 분류된 이상 패턴 조회해줘.",
+            "최근 FDC trip 이력은?"
+        ],
+        "input_schema": {
+            "equipment_id": "string",
+            "start_time": "datetime",
+            "end_time": "datetime"
+        },
+        "output_schema": {
+            "equipment_id": "string",
+            "fault_count": "integer",
+            "fault_classifications": "array",
+            "trip_history": "array",
+            "anomaly_pattern": "string"
+        }
+    },
+    {
+        "tool_name": "wafer_map_correlation",
+        "description": "공정 단계별 웨이퍼 맵의 상관관계를 분석한다.",
+        "tags": ["wafer map", "맵", "상관관계", "분석", "correlation"],
+        "examples": [
+            "웨이퍼 맵 상관관계 분석해줘.",
+            "공정별 wafer map correlation 알려줘.",
+            "결함 위치 패턴 매칭 결과 보여줘.",
+            "공정 간 상관성이 높은 단계는?"
+        ],
+        "input_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "process_ids": "array"
+        },
+        "output_schema": {
+            "lot_id": "string",
+            "wafer_id": "string",
+            "correlation_matrix": "object",
+            "highly_correlated_steps": "array",
+            "pattern_match_score": "float"
+        }
+    },
+    {
+        "tool_name": "process_recipe_compare_tool",
+        "description": "공정 레시피들의 파라미터를 비교 분석한다.",
+        "tags": ["recipe", "레시피", "비교", "파라미터", "compare"],
+        "examples": [
+            "공정 레시피 비교해줘.",
+            "Recipe A와 B 파라미터 차이 알려줘.",
+            "레시피 변경 영향도 분석해줘.",
+            "최적 레시피 추천해줘."
+        ],
+        "input_schema": {
+            "recipe_id_a": "string",
+            "recipe_id_b": "string",
+            "process_id": "string"
+        },
+        "output_schema": {
+            "recipe_id_a": "string",
+            "recipe_id_b": "string",
+            "parameter_differences": "object",
+            "impact_analysis": "string",
+            "recommended_recipe": "string"
+        }
+    },
+    {
+        "tool_name": "customer_quality_complaint",
+        "description": "고객사로부터 접수된 품질 불만 사항을 관리한다.",
+        "tags": ["customer", "고객", "품질불만", "complaint", "CS"],
+        "examples": [
+            "고객 품질 불만 접수 현황 보여줘.",
+            "Customer complaint 리스트 알려줘.",
+            "품질 클레임 원인 분석해줘.",
+            "재발 방지 대책 진행 상황은?"
+        ],
+        "input_schema": {
+            "customer_id": "string",
+            "start_date": "date",
+            "end_date": "date",
+            "status": "string"
+        },
+        "output_schema": {
+            "customer_id": "string",
+            "complaint_count": "integer",
+            "complaints": "array",
+            "root_cause_analysis": "array",
+            "countermeasure_status": "string"
+        }
+    }
+]
